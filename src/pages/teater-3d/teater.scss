@@ -1,0 +1,9 @@
+@import "./../../main.scss";
+
+.page {
+  padding: 2rem;
+  background-color: $winter-wood-bg;
+  border: 2px solid $winter-wood-content;
+  border-radius: 10px;
+  box-shadow: $ds-1;
+}
