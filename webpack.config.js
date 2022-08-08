@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        'home': path.resolve(__dirname, 'src/index.ts'),
-        'teater': path.resolve(__dirname, 'src/pages/teater-3d/teater.ts')
+        'home': path.resolve(__dirname, 'src/pages/home/home-page.ts'),
+        'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.ts')
     },
     output: {
         filename: '[name].js',
@@ -56,14 +56,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Home - Dansk Modelteater Forening',
             filename: 'index.html',
-            template: 'src/pages/home/home.html',
+            template: 'src/pages/home/home-page.html',
             chunks: ['home'],
             minify: false,
         }),
         new HtmlWebpackPlugin({
             title: 'DMF - 3D Teater Moduler',
             filename: 'teater.html',
-            template: 'src/pages/teater-3d/teater.html',
+            template: 'src/pages/teater/teater-page.html',
             chunks: ['teater'],
             minify: false,
         }),
