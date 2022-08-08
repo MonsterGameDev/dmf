@@ -19,6 +19,7 @@ h1 {
   width: 100%;
   background-image: url("./../../img/backgrounds/D-087.webp");
   background-size: cover;
+  background-position: 74% 50%;
 
   display: flex;
   flex-direction: column;
@@ -37,7 +38,7 @@ h1 {
 
 .link-box {
   width: 30vw;
-  min-height: 10vh;
+  min-height: 7vh;
   border: 2px solid darkblue;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -56,7 +57,7 @@ a {
   color: snow;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 2vw;
   transition: text-shadow 2s;
   text-shadow: 0 0 5px rgb(0, 0, 0);
 }
