@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        'index': path.resolve(__dirname, 'src/index.ts')
+        'home': path.resolve(__dirname, 'src/index.ts')
     },
     output: {
         filename: '[name].js',
@@ -20,7 +20,7 @@ module.exports = {
             index: 'index.html',
             writeToDisk: true,
         },
-        port: 9000, 
+        port: 9000,
         hot: true,
         compress: true,
     },
@@ -53,10 +53,10 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'My Webpak App',
+            title: 'Home - Dansk Modelteater Forening',
             filename: 'index.html',
-            template: 'src/pages/template.html',
-            chunks: ['index'],
+            template: 'src/pages/home/home.html',
+            chunks: ['home'],
             minify: false,
         }),
     ]
