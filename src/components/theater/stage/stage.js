@@ -80,6 +80,7 @@ class StageComponent extends HTMLElement {
 
 
   connectedCallback() {
+    alert('connectedCallback: ' + this.hasTouchScreen)
     if (!this.hasTouchScreen) {
       console.log('NOT')
       this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
