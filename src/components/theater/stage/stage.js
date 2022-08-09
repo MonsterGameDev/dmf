@@ -175,20 +175,11 @@ class StageComponent extends HTMLElement {
 
     if (this.hasTouchScreen) {
       try {
-        alert('8: \r\ntarget: '
+        const rect = e.touches[0].target.getBoundingClientRect()
+        alert('9: \r\ntarget: '
           + e.touches[0].target.classList[0] + '\r\n'
-          + 'offsetTop: ' + e.touches[0].target.style.offsetTop + '\r\n'
-          + 'offsetX: ' + e.touches[0].target.style.offsetX + '\r\n'
-          + 'offsetTop: ' + e + '\r\n'
-          + 'offsetX: ' + e.touches[0].target.offsetX + '\r\n'
-          + 'boundingRect' + e.touches[0].target.getBoundingClientRect.top + '\r\n'
-          + 'boundingRect' + e.touches[0].target.getBoundingClientRect.left + '\r\n'
-          + 'e.offsetX: ' + e.offsetX + '\r\n'
-          + 'e.offsetY: ' + e.offsetY + '\r\n'
-          + 'boundingAll: ' + (e.touches[0].target.getBoundingClientRect()
-
-
-          );
+          + 'boundingAll: ' + rect.top + '  - ' + rect.right + ' - ' + rect.bottom + '  -  ' + rect.left + '\r\n'
+        );
       } catch {
         alert('Error')
       }
