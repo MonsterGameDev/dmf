@@ -1,5 +1,8 @@
 import "./teater-page.scss";
 import "./../../components/theater/stage/stage.js";
+import "./../../components/form-components/radio-button-group-component.js"
+
+
 
 import Bagtaeppe from "./../../img/stages/pariser-opera/D-467.webp";
 import Mellemtaeppe from "./../../img/stages/pariser-opera/D-469.webp";
