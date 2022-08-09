@@ -176,7 +176,8 @@ class StageComponent extends HTMLElement {
 
     if (this.hasTouchScreen) {
       try {
-        alert("1: target: " + e.touches[0].target.offsetX + ' - ' + e.touches[0].pageX);
+        alert("2: target: " + e.touches[0].target.offsetLeft + ' - ' + this.overlay.style.offsetLeft + ' ***** '
+          + e.touches[0].target.offsetTop) + ' - ' + this.overlay.style.offsetTop;
       } catch {
         alert('Error')
       }
