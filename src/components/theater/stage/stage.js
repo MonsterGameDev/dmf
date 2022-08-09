@@ -88,8 +88,8 @@ class StageComponent extends HTMLElement {
       this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
     } else {
       alert('we DO have a touchscreen')
-      this.overlay.addEventListener('touchstart', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; });
-      this.overlay.addEventListener('touchend', () => { this.container.style.transition = 'unset'; });
+      this.overlay.addEventListener('touchend', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; });
+      this.overlay.addEventListener('touchstart', () => { this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
     }
   }
@@ -175,6 +175,7 @@ class StageComponent extends HTMLElement {
     if (!this._isOpen) return;
 
     if (this.hasTouchScreen) {
+      alert('target: ' + JSON.stringify(e.touches[0].target));
       e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
       e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
     }
