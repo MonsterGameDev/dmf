@@ -34,5 +34,4 @@ const phStage = document.querySelector("ph-stage");
 phStage.layers = stageLayers;
 
 const utils = new Utils();
-alert(utils.hasTouchScreen);
 utils.hasTouchScreen ? codeBlock.style.display = 'none' : codeBlock.style.display = 'block';

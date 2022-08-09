@@ -4,7 +4,6 @@ class Utils {
     }
 
     get hasTouchScreen() {
-        alert('im here: ' + !!('maxTouchPoints' in navigator));
         if ("maxTouchPoints" in navigator) {
             this._hasTouchScreen = navigator.maxTouchPoints > 0;
         } else if ("msMaxTouchPoints" in navigator) {
