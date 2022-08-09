@@ -175,7 +175,7 @@ class StageComponent extends HTMLElement {
 
     if (this.hasTouchScreen) {
       try {
-        alert('7: \r\ntarget: '
+        alert('8: \r\ntarget: '
           + e.touches[0].target.classList[0] + '\r\n'
           + 'offsetTop: ' + e.touches[0].target.style.offsetTop + '\r\n'
           + 'offsetX: ' + e.touches[0].target.style.offsetX + '\r\n'
