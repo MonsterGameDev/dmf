@@ -185,7 +185,7 @@ class StageComponent extends HTMLElement {
           + 'boundingRect' + e.touches[0].target.getBoundingClientRect.left + '\r\n'
           + 'e.offsetX: ' + e.offsetX + '\r\n'
           + 'e.offsetY: ' + e.offsetY + '\r\n'
-          + 'boundingAll: ' + JSON.stringyfy(e.touches[0].target.getBoundingClientRect)
+          + 'boundingAll: ' + JSON.stringyfy(e.touches[0].target.getBoundingClientRect())
 
 
         );
