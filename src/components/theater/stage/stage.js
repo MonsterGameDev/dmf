@@ -175,7 +175,12 @@ class StageComponent extends HTMLElement {
     if (!this._isOpen) return;
 
     if (this.hasTouchScreen) {
-      alert("target: " + e.touches[0].target);
+      try {
+        alert("target: " + e.touches[0].target.offsetLeft);
+      } catch {
+        alert('Error')
+      }
+
       e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
       e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
     }
