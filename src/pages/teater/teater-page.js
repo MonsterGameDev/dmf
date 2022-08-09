@@ -12,8 +12,8 @@ import Fortaeppe_RoedStue from "./../../img/stages/roed-stue/D-048-for.webp";
 
 
 import Bagtaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-022.webp";
-import Mellemtaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-for.webp";
-import Fortaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-mellem.webp";
+import Mellemtaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-mellem.webp";
+import Fortaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-for.webp";
 
 
 const stageLayers_GlGade = [
