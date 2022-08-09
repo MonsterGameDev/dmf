@@ -1,4 +1,5 @@
 
+import Utils from './../../../shared/utils/utils.js'
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -58,6 +59,8 @@ class StageComponent extends HTMLElement {
 
     this.container = this.shadowRoot.querySelector('.stage-container')
     this.overlay = this.shadowRoot.querySelector('.overlay');
+
+    this.hasTouchScreen = Utils.hasTouchScreen;
   }
 
   static get observedAttributes() {
@@ -76,10 +79,16 @@ class StageComponent extends HTMLElement {
 
 
   connectedCallback() {
+    if (!this.hasTouchScreen) {
+      this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
+      this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
+      this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    } else {
 
-    this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
-    this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
-    this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this))
+      this.overlay.addEventListener('touchleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
+      this.overlay.addEventListener('touchenter', () => { this.container.style.transition = 'unset'; });
+      this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
+    }
   }
 
   attributeChangedCallback(attr, oldval, newval) {
@@ -160,6 +169,7 @@ class StageComponent extends HTMLElement {
 
   handleMouseMove(e) {
     if (!this._isOpen) return;
+
     const perspectiveOffsets = this._computedValues(
       this.overlay,
       e.offsetX,
