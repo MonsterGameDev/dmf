@@ -183,8 +183,6 @@ class StageComponent extends HTMLElement {
       e.offsetY
     );
 
-    alert('perspectiveOffsets: ' + perspectiveOffsets)
-
     this.container.style.perspectiveOrigin = perspectiveOffsets;
   }
 }
