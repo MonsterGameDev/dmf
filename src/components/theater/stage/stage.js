@@ -174,20 +174,21 @@ class StageComponent extends HTMLElement {
     if (!this._isOpen) return;
 
     if (this.hasTouchScreen) {
-      try {
-        const rect = e.touches[0].target.getBoundingClientRect()
-        alert('9: \r\ntarget: '
-          + e.touches[0].target.classList[0] + '\r\n'
-          + 'boundingAll: ' + rect.top + '  - ' + rect.right + ' - ' + rect.bottom + '  -  ' + rect.left + '\r\n'
-          + 'tryout: ' + e.touches[0].clientX + '/' + e.touches[0].clientY + '\r\n'
-          + 'PageX/Y: ' + e.touches[0].pageX + '/' + e.touches[0].pageY
-        );
-      } catch {
-        alert('Error')
-      }
+      // try {
+      //   const rect = e.touches[0].target.getBoundingClientRect()
+      //   alert('9: \r\ntarget: '
+      //     + e.touches[0].target.classList[0] + '\r\n'
+      //     + 'boundingAll: ' + rect.left + '/' + rect.top + '\r\n'
+      //     + 'tryout: ' + e.touches[0].clientX + '/' + e.touches[0].clientY + '\r\n'
+      //     + 'PageX/Y: ' + e.touches[0].pageX + '/' + e.touches[0].pageY
+      //   );
+      // } catch {
+      //   alert('Error')
+      // }
+      const rect = e.touches[0].target.getBoundingClientRect()
 
-      e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-      e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+      e.offsetX = e.touches[0].pageX - rect.left;
+      e.offsetY = e.touches[0].pageY - rect.top;
     }
     const perspectiveOffsets = this._computedValues(
       this.overlay,
