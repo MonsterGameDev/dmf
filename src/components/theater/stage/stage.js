@@ -179,7 +179,8 @@ class StageComponent extends HTMLElement {
         alert('9: \r\ntarget: '
           + e.touches[0].target.classList[0] + '\r\n'
           + 'boundingAll: ' + rect.top + '  - ' + rect.right + ' - ' + rect.bottom + '  -  ' + rect.left + '\r\n'
-          + 'tryout: ' + e.touches[0].clientX
+          + 'tryout: ' + e.touches[0].clientX + '/' + e.touches[0].clientY + '\r\n'
+          + 'PageX/Y: ' + e.touches[0].pageX + '/' + e.touches[0].pageY
         );
       } catch {
         alert('Error')
