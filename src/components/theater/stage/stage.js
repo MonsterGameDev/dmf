@@ -85,9 +85,9 @@ class StageComponent extends HTMLElement {
       this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
     } else {
-
-      this.overlay.addEventListener('touchleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
-      this.overlay.addEventListener('touchenter', () => { this.container.style.transition = 'unset'; });
+      alert('we DO have a touchscreen')
+      this.overlay.addEventListener('touchleave', () => { alert('touchleave triggered'); this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
+      this.overlay.addEventListener('touchenter', () => { alert('touchleave triggered'); this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
     }
   }
@@ -169,6 +169,7 @@ class StageComponent extends HTMLElement {
   }
 
   handleMouseMove(e) {
+    alert('handleMouseMove isOpen: ' + this._isOpen)
     if (!this._isOpen) return;
 
     const perspectiveOffsets = this._computedValues(
