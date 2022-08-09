@@ -60,7 +60,8 @@ class StageComponent extends HTMLElement {
     this.container = this.shadowRoot.querySelector('.stage-container')
     this.overlay = this.shadowRoot.querySelector('.overlay');
 
-    this.hasTouchScreen = Utils.hasTouchScreen;
+    const utils = new Utils();
+    this.hasTouchScreen = utils.hasTouchScreen;
   }
 
   static get observedAttributes() {
