@@ -53,6 +53,7 @@ class StageComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this._layers = [];
     this._isOpen = false;
+    this.disableYAxis = false;
 
     const templateContent = template.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -65,7 +66,7 @@ class StageComponent extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['blendmode', 'overlay-color', 'click-to-activate'];
+    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-y-axis'];
   }
 
   get layers() {
@@ -108,7 +109,11 @@ class StageComponent extends HTMLElement {
         this.overlay.addEventListener('click', handlePlay);
       }
     }
+    if (attr === 'disable-y-axis') {
+      newval === 'true' ? this.disableYAxis = true : this.disableYAxis = false;
+    }
   }
+
 
   _calculateLayers(val) {
     const backCurtainZpos = -((val.length * 10) - 5);
@@ -151,7 +156,9 @@ class StageComponent extends HTMLElement {
     const yPercent = (yPos / computed.height) * 100;
 
     const param1 = this.setBoundaries(6, 92.5, xPercent);
-    const param2 = this.setBoundaries(36, 83, yPercent);
+    let param2 = this.setBoundaries(36, 83, yPercent);
+
+    if (this.disableYAxis) param2 = 50;
 
     return param1 + "% " + param2 + "%";
   }
@@ -178,7 +185,7 @@ class StageComponent extends HTMLElement {
       e.offsetX = e.touches[0].pageX - rect.left;
       e.offsetY = e.touches[0].pageY - rect.top;
     }
-    
+
     const perspectiveOffsets = this._computedValues(
       this.overlay,
       e.offsetX,
