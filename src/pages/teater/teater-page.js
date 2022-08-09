@@ -33,6 +33,6 @@ const codeBlock = document.querySelector('.code-example');
 const phStage = document.querySelector("ph-stage");
 phStage.layers = stageLayers;
 
-
-alert(Utils.hasTouchScreen);
-Utils.hasTouchScreen ? codeBlock.style.display = 'none' : codeBlock.style.display = 'block';
+const utils = new Utils();
+alert(utils.hasTouchScreen);
+utils.hasTouchScreen ? codeBlock.style.display = 'none' : codeBlock.style.display = 'block';
