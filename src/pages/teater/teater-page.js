@@ -1,6 +1,5 @@
 import "./teater-page.scss";
 import "./../../components/theater/stage/stage.js";
-import Utils from './../../shared/utils/utils.js';
 
 import Bagtaeppe from "./../../img/stages/pariser-opera/D-467.webp";
 import Mellemtaeppe from "./../../img/stages/pariser-opera/D-469.webp";
