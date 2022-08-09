@@ -28,9 +28,10 @@ const body = document.querySelector("body");
 const page = document.querySelector(".page");
 const stageSection = document.querySelector("stage-section");
 const stageContainer = document.querySelector("stage-section__container");
+const codeBlock = document.querySelector('.code-example');
 
 const phStage = document.querySelector("ph-stage");
 phStage.layers = stageLayers;
 
-Utils.hasTouchScreen ? alert('You have touchScreen') : alert('You do NOT have thouchScreen');
+Utils.hasTouchScreen ? codeBlock.style.display = 'none' : codeBlock.style.display = 'block';
 
