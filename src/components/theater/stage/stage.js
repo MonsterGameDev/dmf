@@ -81,6 +81,7 @@ class StageComponent extends HTMLElement {
 
   connectedCallback() {
     if (!this.hasTouchScreen) {
+      console.log('NOT')
       this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
       this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
@@ -169,7 +170,7 @@ class StageComponent extends HTMLElement {
   }
 
   handleMouseMove(e) {
-    e.preventDefaults();
+    e.preventDefault();
     if (!this._isOpen) return;
 
     const perspectiveOffsets = this._computedValues(
