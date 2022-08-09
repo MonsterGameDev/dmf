@@ -80,14 +80,13 @@ class StageComponent extends HTMLElement {
 
 
   connectedCallback() {
-    alert('connectedCallback: ' + this.hasTouchScreen)
+
     if (!this.hasTouchScreen) {
       console.log('NOT')
       this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
       this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
     } else {
-      alert('we DO have a touchscreen')
       this.overlay.addEventListener('touchend', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; });
       this.overlay.addEventListener('touchstart', () => { this.container.style.transition = 'unset'; });
       this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
@@ -176,8 +175,8 @@ class StageComponent extends HTMLElement {
 
     if (this.hasTouchScreen) {
       try {
-        alert("3: target: " + e.touches[0].target.offsetX + ' - ' + this.overlay.style.offsetX + ' ***** '
-          + e.touches[0].target.offsetY + ' - ' + this.overlay.style.offsetY);
+        alert("4: target:  \n" + e.touches[0].target.offsetX + '\n - ' + overlay.style.offsetX + ' ***** '
+          + e.touches[0].target.offsetY + ' - ' + overlay.style.offsetY);
       } catch {
         alert('Error')
       }
