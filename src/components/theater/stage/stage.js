@@ -177,6 +177,8 @@ class StageComponent extends HTMLElement {
       try {
         alert('5: \r\ntarget: '
           + e.touches[0].target.classList[0] + '\r\n'
+          + 'offsetTop: ' + e.touches[0].target.style.offsetTop + '\r\n'
+          + 'offsetX: ' + e.touches[0].target.style.offsetX + '\r\n'
 
         );
       } catch {
