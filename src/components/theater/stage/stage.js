@@ -66,14 +66,14 @@ class StageComponent extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-y-axis'];
+    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
   }
 
   get layers() {
     return this._layers;
   }
   set layers(val) {
-    if (!val || !val.length) return;
+    if (!val || !val.layers.length) return;
 
     this._calculateLayers(val);
 
@@ -107,19 +107,22 @@ class StageComponent extends HTMLElement {
         this.overlay.addEventListener('click', handlePlay);
       }
     }
-    if (attr === 'disable-y-axis') {
-      newval === 'true' ? this.disableYAxis = true : this.disableYAxis = false;
+    if (attr === 'disable-parallax') {
+      // newval === 'true' ? this.disableYAxis = true : this.disableYAxis = false;
     }
   }
 
   _calculateLayers(val) {
+    this.disableYAxis = val.disableYAxis;
+    const layers = val.layers;
+
     const stage = this.shadowRoot.querySelector('.stage-container');
     stage.innerHTML = '';
     //debugger;
-    const backCurtainZpos = -((val.length * 10) - 5);
+    const backCurtainZpos = -((layers.length * 10) - 5);
     const baseScale = 1.5;
 
-    val.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
+    layers.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
       const imgContainer = document.createElement('div');
       imgContainer.classList.add(['parallax']);
 
