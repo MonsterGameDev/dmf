@@ -73,7 +73,6 @@ const STAGES = [
             },
         ]
     }
-
 ];
 
 export default STAGES;
