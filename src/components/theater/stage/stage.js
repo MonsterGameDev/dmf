@@ -74,11 +74,10 @@ class StageComponent extends HTMLElement {
   }
   set layers(val) {
     if (!val || !val.length) return;
+
     this._calculateLayers(val);
 
   }
-
-
 
   connectedCallback() {
 
@@ -113,11 +112,12 @@ class StageComponent extends HTMLElement {
     }
   }
 
-
   _calculateLayers(val) {
+    const stage = this.shadowRoot.querySelector('.stage-container');
+    stage.innerHTML = '';
+    //debugger;
     const backCurtainZpos = -((val.length * 10) - 5);
     const baseScale = 1.5;
-    const stage = this.shadowRoot.querySelector('.stage-container');
 
     val.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
       const imgContainer = document.createElement('div');

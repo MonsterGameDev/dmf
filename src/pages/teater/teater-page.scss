@@ -1,5 +1,8 @@
 @import "./../../main.scss";
-
+:root {
+  --radio-button-color: #800000;
+  --radio-button-active-color: #b21382;
+}
 .page-header-normal {
   font-size: 3vw;
   margin-bottom: 3vw;
@@ -29,4 +32,7 @@
     display: inline-block;
     width: 60%;
   }
+}
+
+.choose-stage-panel {
 }
