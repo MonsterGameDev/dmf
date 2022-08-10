@@ -15,6 +15,7 @@ import Fortaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-for.webp";
 const STAGES = [
     {
         id: 'gammelgade01',
+        disableYAxis: true,
         layers: [
             {
                 imgSrc: Bagtaeppe_GlGade,
@@ -35,6 +36,7 @@ const STAGES = [
     },
     {
         id: 'roedstue',
+        disableYAxis: true,
         layers: [
             {
                 imgSrc: Bagtaeppe_RoedStue,
@@ -55,6 +57,7 @@ const STAGES = [
     },
     {
         id: 'pariseropera',
+        disableYAxis: false,
         layers: [
             {
                 imgSrc: Bagtaeppe,
