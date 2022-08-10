@@ -2,6 +2,7 @@
     In:  
     groupHeading: string, 
     fieldName: string, - name given to all radiobuttons in group
+    selectedId: any (id)
     radiobuttons: {
         label: string;
         id: any;
@@ -163,8 +164,6 @@ class RadioButtonGroupComponent extends HTMLElement {
 
     }
 
-
-
     render(val) {
         if (!val) return;
 
@@ -202,19 +201,16 @@ class RadioButtonGroupComponent extends HTMLElement {
         container.appendChild(fieldsContainer);
         this.shadowRoot.appendChild(container);
 
-        // dispatch changeEvent on each radiobutton
         const allRadioButtons = this.shadowRoot.querySelectorAll('input');
-        allRadioButtons.forEach(r => r.addEventListener('change', (e) => {
-            const changeEvent = new CustomEvent('change', { detail: r.value });
-            this.dispatchEvent(changeEvent);
-        }))
+        allRadioButtons.forEach(r => {
+            r.addEventListener('change', (e) => {
+                const changeEvent = new CustomEvent('change', { detail: r.value });
+                this.dispatchEvent(changeEvent);
+            });
+
+            r.id === val.selectedId ? r.checked = true : r.checked = false;
+        })
     }
-
-    connectedCallback() {
-
-    }
-
-    attributeChangedCallback(attr, oldval, newval) { }
 }
 
 window.customElements.define('ph-radio-button-group', RadioButtonGroupComponent);
