@@ -128,16 +128,11 @@ class StageComponent extends HTMLElement {
         ? imgContainer.setAttribute('style', `transform: translateZ(${backCurtainZpos}px) scale(${baseScale + i})`)
         : imgContainer.setAttribute('style', `position:absolute; z-index: ${layer.zIndex}; transform: translateZ(${backCurtainZpos + (layer.zIndex - 1) * 10}px) scale(${baseScale + i})`);
 
-
-
       const img = document.createElement('img');
       img.setAttribute('src', layer.imgSrc);
       img.setAttribute('alt', layer.altText);
 
-
-
       imgContainer.appendChild(img);
-
       stage.appendChild(imgContainer);
 
     })

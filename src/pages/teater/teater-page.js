@@ -23,19 +23,21 @@ const _availableStages = [
 const groupConfig = {
   groupHeading: 'Vælg en scene',
   fieldName: 'stageSelector',
+  selectedId: 'gammelgade01',
   radiobuttons: _availableStages
 }
 
 const stageService = new StageRetrievalService();
 
 const phStage = document.querySelector("ph-stage");
-phStage.layers = stageService.getStageById('pariseropera');
 
 const stageSelector = document.querySelector('ph-radio-button-group');
+
 stageSelector.groupConfig = groupConfig;
+phStage.layers = stageService.getStageById(groupConfig.selectedId);
 
 stageSelector.addEventListener('change', (e) => {
-  console.log('Received change', e.detail);
   phStage.layers = stageService.getStageById(e.detail);
 
 })
+
