@@ -136,10 +136,8 @@ class StageComponent extends HTMLElement {
 
     const perspectiveOffsets = this._computedValues(
       this.overlay,
-      xpos,
-      ypos,
-      //   e.offsetX,
-      //   e.offsetY
+      e.offsetX,
+      e.offsetY
     );
 
     this.container.style.perspectiveOrigin = perspectiveOffsets;
