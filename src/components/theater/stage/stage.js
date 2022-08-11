@@ -120,8 +120,14 @@ class StageComponent extends HTMLElement {
     const ypos = e.offsetY;
     e.preventDefault();
     if (!this._isOpen) return;
+
     if (this.hasTouchScreen) {
       const rect = e.touches[0].target.getBoundingClientRect()
+      alert('pageX: ' + e.touches[0].pageX + '\r\n'
+        + 'rect.left: ' + rect.left + '\r\n'
+        + 'pageY: ' + e.touches[0].pageY + '\r\n'
+        + 'rect.top: ' + rect.top
+      )
       xpos = e.touches[0].pageX - rect.left;
       ypos = e.touches[0].pageY - rect.top;
       // e.offsetX = e.touches[0].pageX - rect.left;
