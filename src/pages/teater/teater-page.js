@@ -1,25 +1,22 @@
 import "./teater-page.scss";
 import "./../../components/theater/stage/stage.js";
 import "./../../components/form-components/radio-button-group-component.js"
-import StageRetrievalService from "../../shared/stages/stage-retrieval.service"; "../../shared/stages/stage-retrieval.service.js";
+import StageRetrievalService from "../../shared/stages/stage-retrieval.service";
 
-const _availableStages = [
-  {
-    id: 'pariseropera',
-    value: 'pariseropera',
-    label: 'Pariser Opera'
-  },
-  {
-    id: 'roedstue',
-    value: 'roedstue',
-    label: 'Den røde Stue'
-  },
-  {
-    id: 'gammelgade01',
-    value: 'gammelgade01',
-    label: 'Gammel gade'
-  },
-];
+const stageService = new StageRetrievalService();
+
+const _availableStages = [];
+
+
+stageService.getAllStages().forEach(conf => {
+  _availableStages.push({
+    id: conf.id,
+    value: conf.id,
+    label: conf.label
+  })
+});
+
+
 const groupConfig = {
   groupHeading: 'Vælg en scene',
   fieldName: 'stageSelector',
@@ -27,7 +24,7 @@ const groupConfig = {
   radiobuttons: _availableStages
 }
 
-const stageService = new StageRetrievalService();
+
 
 const phStage = document.querySelector("ph-stage");
 

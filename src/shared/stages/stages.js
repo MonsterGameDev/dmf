@@ -16,6 +16,7 @@ const STAGES = [
     {
         id: 'gammelgade01',
         disableYAxis: true,
+        label: 'Gammel Gade 01',
         layers: [
             {
                 imgSrc: Bagtaeppe_GlGade,
@@ -37,6 +38,7 @@ const STAGES = [
     {
         id: 'roedstue',
         disableYAxis: true,
+        label: 'Rød stue',
         layers: [
             {
                 imgSrc: Bagtaeppe_RoedStue,
@@ -58,6 +60,7 @@ const STAGES = [
     {
         id: 'pariseropera',
         disableYAxis: false,
+        label: 'Pariser Opera',
         layers: [
             {
                 imgSrc: Bagtaeppe,
