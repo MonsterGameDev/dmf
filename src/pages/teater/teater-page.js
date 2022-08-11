@@ -1,83 +1,40 @@
 import "./teater-page.scss";
 import "./../../components/theater/stage/stage.js";
-import Utils from './../../shared/utils/utils.js';
+import "./../../components/form-components/radio-button-group-component.js"
+import StageRetrievalService from "../../shared/stages/stage-retrieval.service";
 
-import Bagtaeppe from "./../../img/stages/pariser-opera/D-467.webp";
-import Mellemtaeppe from "./../../img/stages/pariser-opera/D-469.webp";
-import Fortaeppe from "./../../img/stages/pariser-opera/D-470.webp";
+const stageService = new StageRetrievalService();
 
-import Bagtaeppe_RoedStue from "./../../img/stages/roed-stue/D-047.webp";
-import Mellemtaeppe_RoedStue from "./../../img/stages/roed-stue/D-048-mellem.webp";
-import Fortaeppe_RoedStue from "./../../img/stages/roed-stue/D-048-for.webp";
+const _availableStages = [];
 
 
-import Bagtaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-022.webp";
-import Mellemtaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-mellem.webp";
-import Fortaeppe_GlGade from "./../../img/stages/gammel-gade-01/D-011-for.webp";
+stageService.getAllStages().forEach(conf => {
+  _availableStages.push({
+    id: conf.id,
+    value: conf.id,
+    label: conf.label
+  })
+});
 
 
-const stageLayers_GlGade = [
-  {
-    imgSrc: Bagtaeppe_GlGade,
-    altText: "bagtaeppe",
-    zIndex: 1,
-  },
-  {
-    imgSrc: Mellemtaeppe_GlGade,
-    altText: "mellemtaeppe",
-    zIndex: 2,
-  },
-  {
-    imgSrc: Fortaeppe_GlGade,
-    altText: "fortæppe",
-    zIndex: 3,
-  },
-];
+const groupConfig = {
+  groupHeading: 'Vælg en scene',
+  fieldName: 'stageSelector',
+  selectedId: 'gammelgade01',
+  radiobuttons: _availableStages
+}
 
 
-const stageLayers_RoedStue = [
-  {
-    imgSrc: Bagtaeppe_RoedStue,
-    altText: "bagtaeppe",
-    zIndex: 1,
-  },
-  {
-    imgSrc: Mellemtaeppe_RoedStue,
-    altText: "mellemtaeppe",
-    zIndex: 2,
-  },
-  {
-    imgSrc: Fortaeppe_RoedStue,
-    altText: "fortæppe",
-    zIndex: 3,
-  },
-];
-const stageLayers = [
-  {
-    imgSrc: Bagtaeppe,
-    altText: "bagtaeppe",
-    zIndex: 1,
-  },
-  {
-    imgSrc: Mellemtaeppe,
-    altText: "mellemtaeppe",
-    zIndex: 2,
-  },
-  {
-    imgSrc: Fortaeppe,
-    altText: "fortæppe",
-    zIndex: 3,
-  },
-];
-
-const body = document.querySelector("body");
-const page = document.querySelector(".page");
-const stageSection = document.querySelector(".stage-section");
-const stageContainer = document.querySelector(".stage-section__container");
-const codeBlock = document.querySelector('.code-example');
 
 const phStage = document.querySelector("ph-stage");
-//phStage.layers = stageLayers;
-//phStage.layers = stageLayers_RoedStue;
-phStage.layers = stageLayers_GlGade;
+
+const stageSelector = document.querySelector('ph-radio-button-group');
+
+stageSelector.groupConfig = groupConfig;
+phStage.layers = stageService.getStageById(groupConfig.selectedId);
+
+stageSelector.addEventListener('change', (e) => {
+  phStage.layers = stageService.getStageById(e.detail);
+
+})
 

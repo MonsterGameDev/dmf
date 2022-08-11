@@ -48,6 +48,16 @@ template.innerHTML = `
 `
 
 class StageComponent extends HTMLElement {
+  get layers() {
+    return this._layers;
+  }
+  set layers(val) {
+    if (!val || !val.layers.length) return;
+
+    this._calculateLayers(val);
+
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -63,36 +73,73 @@ class StageComponent extends HTMLElement {
 
     const utils = new Utils();
     this.hasTouchScreen = utils.hasTouchScreen;
-  }
 
-  static get observedAttributes() {
-    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-y-axis'];
-  }
+    this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
+    this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
+    this.handleMouseMoveEvent = this.handleMouseMove.bind(this);
 
-  get layers() {
-    return this._layers;
-  }
-  set layers(val) {
-    if (!val || !val.length) return;
-    this._calculateLayers(val);
+    this.handleTouchEndEvent = this.handleTouchEnd.bind(this);
+    this.handleTouchStartEvent = this.handleTouchStart.bind(this);
+    this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
+
+    this.addAllEventListeners()
 
   }
 
-
-
-  connectedCallback() {
-
+  addAllEventListeners() {
     if (!this.hasTouchScreen) {
-      console.log('NOT')
-      this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
-      this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
-      this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
+      this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
+      this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
     } else {
-      this.overlay.addEventListener('touchend', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; });
-      this.overlay.addEventListener('touchstart', () => { this.container.style.transition = 'unset'; });
-      this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
+      this.overlay.addEventListener('touchend', this.handleTouchEndEvent);
+      this.overlay.addEventListener('touchstart', this.handleTouchStartEvent);
+      this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
     }
   }
+
+  removeAllEventListeners() {
+    if (!this.hasTouchScreen) {
+      this.overlay.removeEventListener('mouseleave', this.handleMouseLeaveEvent);
+      this.overlay.removeEventListener('mouseenter', this.handleMouseEnterEvent);
+      this.overlay.removeEventListener('mousemove', this.handleMouseMoveEvent);
+    } else {
+      this.overlay.removeEventListener('touchend', this.handleTouchEndEvent);
+      this.overlay.removeEventListener('touchstart', this.handleTouchStartEvent);
+      this.overlay.removeEventListener('touchmove', this.handleTouchMoveEvent);
+    }
+  }
+
+  handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
+  handleMouseEnter() { this.container.style.transition = 'unset'; }
+  handleMouseMove(e) {
+    e.preventDefault();
+    if (!this._isOpen) return;
+
+    if (this.hasTouchScreen) {
+      const rect = e.touches[0].target.getBoundingClientRect()
+      e.offsetX = e.touches[0].pageX - rect.left;
+      e.offsetY = e.touches[0].pageY - rect.top;
+    }
+
+    const perspectiveOffsets = this._computedValues(
+      this.overlay,
+      e.offsetX,
+      e.offsetY
+    );
+
+    this.container.style.perspectiveOrigin = perspectiveOffsets;
+  }
+  handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
+  handleTouchStart() { this.container.style.transition = 'unset'; };
+
+
+
+
+  static get observedAttributes() {
+    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
+  }
+
 
   attributeChangedCallback(attr, oldval, newval) {
 
@@ -109,18 +156,25 @@ class StageComponent extends HTMLElement {
         this.overlay.addEventListener('click', handlePlay);
       }
     }
-    if (attr === 'disable-y-axis') {
-      newval === 'true' ? this.disableYAxis = true : this.disableYAxis = false;
+    if (attr === 'disable-parallax') {
+      if (this.hasAttribute('disable-parallax')) {
+        console.log('i am gonna remove eventlisteners');
+        this.removeAllEventListeners();
+      }
     }
   }
 
-
   _calculateLayers(val) {
-    const backCurtainZpos = -((val.length * 10) - 5);
-    const baseScale = 1.5;
-    const stage = this.shadowRoot.querySelector('.stage-container');
+    this.disableYAxis = val.disableYAxis;
+    const layers = val.layers;
 
-    val.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
+    const stage = this.shadowRoot.querySelector('.stage-container');
+    stage.innerHTML = '';
+    //debugger;
+    const backCurtainZpos = -((layers.length * 10) - 5);
+    const baseScale = 1.5;
+
+    layers.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
       const imgContainer = document.createElement('div');
       imgContainer.classList.add(['parallax']);
 
@@ -129,16 +183,11 @@ class StageComponent extends HTMLElement {
         ? imgContainer.setAttribute('style', `transform: translateZ(${backCurtainZpos}px) scale(${baseScale + i})`)
         : imgContainer.setAttribute('style', `position:absolute; z-index: ${layer.zIndex}; transform: translateZ(${backCurtainZpos + (layer.zIndex - 1) * 10}px) scale(${baseScale + i})`);
 
-
-
       const img = document.createElement('img');
       img.setAttribute('src', layer.imgSrc);
       img.setAttribute('alt', layer.altText);
 
-
-
       imgContainer.appendChild(img);
-
       stage.appendChild(imgContainer);
 
     })
@@ -176,24 +225,7 @@ class StageComponent extends HTMLElement {
     };
   }
 
-  handleMouseMove(e) {
-    e.preventDefault();
-    if (!this._isOpen) return;
 
-    if (this.hasTouchScreen) {
-      const rect = e.touches[0].target.getBoundingClientRect()
-      e.offsetX = e.touches[0].pageX - rect.left;
-      e.offsetY = e.touches[0].pageY - rect.top;
-    }
-
-    const perspectiveOffsets = this._computedValues(
-      this.overlay,
-      e.offsetX,
-      e.offsetY
-    );
-
-    this.container.style.perspectiveOrigin = perspectiveOffsets;
-  }
 }
 
 window.customElements.define('ph-stage', StageComponent);
