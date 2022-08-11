@@ -64,6 +64,7 @@ class StageComponent extends HTMLElement {
     this._layers = [];
     this._isOpen = false;
     this.disableYAxis = false;
+    this.computed = null;
 
     const templateContent = template.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -83,6 +84,8 @@ class StageComponent extends HTMLElement {
     this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
 
     this.addAllEventListeners()
+
+
 
   }
 
@@ -163,13 +166,26 @@ class StageComponent extends HTMLElement {
     }
   }
 
+  connectedCallback() {
+    this.computed = this._getComputedStyle(element);
+
+    if (this.hasTouchScreen) {
+      screen.orientation.addEventListener('change', () => {
+        this._calculateLayers(this.layers);
+        this.computed = this._getComputedStyle();
+      })
+    }
+  }
+
   _calculateLayers(val) {
+
     this.disableYAxis = val.disableYAxis;
     const layers = val.layers;
 
     const stage = this.shadowRoot.querySelector('.stage-container');
+    // reset before drawing
     stage.innerHTML = '';
-    //debugger;
+
     const backCurtainZpos = -((layers.length * 10) - 5);
     const baseScale = 1.5;
 
