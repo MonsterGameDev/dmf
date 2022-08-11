@@ -116,23 +116,23 @@ class StageComponent extends HTMLElement {
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
   handleMouseEnter() { this.container.style.transition = 'unset'; }
   handleMouseMove(e) {
-    const xpos = e.offsetX;
-    const ypos = e.offsetY;
+    // const xpos = e.offsetX;
+    // const ypos = e.offsetY;
     e.preventDefault();
     if (!this._isOpen) return;
 
-    if (this.hasTouchScreen) {
-      const rect = e.touches[0].target.getBoundingClientRect()
-      alert('pageX: ' + e.touches[0].pageX + '\r\n'
-        + 'rect.left: ' + rect.left + '\r\n'
-        + 'pageY: ' + e.touches[0].pageY + '\r\n'
-        + 'rect.top: ' + rect.top
-      )
-      xpos = e.touches[0].pageX - rect.left;
-      ypos = e.touches[0].pageY - rect.top;
-      // e.offsetX = e.touches[0].pageX - rect.left;
-      // e.offsetY = e.touches[0].pageY - rect.top;
-    }
+    // if (this.hasTouchScreen) {
+    //   const rect = e.touches[0].target.getBoundingClientRect()
+    //   alert('pageX: ' + e.touches[0].pageX + '\r\n'
+    //     + 'rect.left: ' + rect.left + '\r\n'
+    //     + 'pageY: ' + e.touches[0].pageY + '\r\n'
+    //     + 'rect.top: ' + rect.top
+    //   )
+    //   xpos = e.touches[0].pageX - rect.left;
+    //   ypos = e.touches[0].pageY - rect.top;
+    // e.offsetX = e.touches[0].pageX - rect.left;
+    // e.offsetY = e.touches[0].pageY - rect.top;
+    // }
 
     const perspectiveOffsets = this._computedValues(
       this.overlay,
