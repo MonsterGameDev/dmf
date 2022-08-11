@@ -199,7 +199,7 @@ class StageComponent extends HTMLElement {
   _computedValues(element, mouseX, mouseY) {
 
     const computed = this._getComputedStyle(element);
-    alert('X: ', mouseX, 'Y: ', mouseY, 'computedHeight: ', computed.height)
+    alert('X: ' + mouseX + '/r/nY: ' + mouseY + '/r/n computedWidth: ' + computed.width + '/r/n computedHeight'+ computed.height)
     const xPos = parseInt(mouseX);
     const yPos = parseInt(mouseY);
     const xPercent = (xPos / computed.width) * 100;
