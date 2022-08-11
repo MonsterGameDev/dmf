@@ -168,13 +168,6 @@ class StageComponent extends HTMLElement {
 
   connectedCallback() {
     this.computed = this._getComputedStyle(this.overlay);
-
-    if (this.hasTouchScreen) {
-      screen.orientation.addEventListener('change', () => {
-        this._calculateLayers(this.layers);
-        this.computed = this._getComputedStyle(this.overlay);
-      })
-    }
   }
 
   _calculateLayers(val) {
