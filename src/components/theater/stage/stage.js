@@ -116,18 +116,24 @@ class StageComponent extends HTMLElement {
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
   handleMouseEnter() { this.container.style.transition = 'unset'; }
   handleMouseMove(e) {
+    const xpos = e.offsetX;
+    const ypos = e.offsetY;
     e.preventDefault();
     if (!this._isOpen) return;
     if (this.hasTouchScreen) {
       const rect = e.touches[0].target.getBoundingClientRect()
-      e.offsetX = e.touches[0].pageX - rect.left;
-      e.offsetY = e.touches[0].pageY - rect.top;
+      xpos = e.touches[0].pageX - rect.left;
+      ypos = e.touches[0].pageY - rect.top;
+      // e.offsetX = e.touches[0].pageX - rect.left;
+      // e.offsetY = e.touches[0].pageY - rect.top;
     }
 
     const perspectiveOffsets = this._computedValues(
       this.overlay,
-      e.offsetX,
-      e.offsetY
+      xpos,
+      ypos,
+      //   e.offsetX,
+      //   e.offsetY
     );
 
     this.container.style.perspectiveOrigin = perspectiveOffsets;
@@ -167,7 +173,12 @@ class StageComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.computed = this._getComputedStyle(this.overlay);
+    // aint run before WC-Dom has finished loading
+    setTimeout(
+      () => { this.computed = this._getComputedStyle(this.overlay); },
+      0
+    )
+
   }
 
   _calculateLayers(val) {
@@ -206,9 +217,7 @@ class StageComponent extends HTMLElement {
   }
 
   _computedValues(element, mouseX, mouseY) {
-
     const computed = this._getComputedStyle(element);
-    //alert('X: ' + mouseX + '\r\nY: ' + mouseY + '\r\n computedWidth: ' + computed.width + '\r\n computedHeight'+ computed.height + )
     const xPos = parseInt(mouseX);
     const yPos = parseInt(mouseY);
     const xPercent = (xPos / computed.width) * 100;
