@@ -1,4 +1,5 @@
 import STAGES from './stages.js';
+import STAGEOPENINGS from './stage-openings.js';
 
 class StageRetrievalService {
     getStageById(id) {
@@ -8,6 +9,15 @@ class StageRetrievalService {
 
     getAllStages() {
         return STAGES;
+    }
+
+    getStageOpeningById(id) {
+        const stageOpenings = STAGEOPENINGS.filter((so) => so.id === id);
+        return stageOpenings.length === 1 ? stageOpenings[0] : null;
+    }
+
+    getAllStageOpenings() {
+        return STAGEOPENINGS;
     }
 }
 
