@@ -48,6 +48,16 @@ template.innerHTML = `
 `
 
 class StageComponent extends HTMLElement {
+  get layers() {
+    return this._layers;
+  }
+  set layers(val) {
+    if (!val || !val.layers.length) return;
+
+    this._calculateLayers(val);
+
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -63,34 +73,73 @@ class StageComponent extends HTMLElement {
 
     const utils = new Utils();
     this.hasTouchScreen = utils.hasTouchScreen;
+
+    this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
+    this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
+    this.handleMouseMoveEvent = this.handleMouseMove.bind(this);
+
+    this.handleTouchEndEvent = this.handleTouchEnd.bind(this);
+    this.handleTouchStartEvent = this.handleTouchStart.bind(this);
+    this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
+
+    this.addAllEventListeners()
+
   }
+
+  addAllEventListeners() {
+    if (!this.hasTouchScreen) {
+      this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
+      this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
+      this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
+    } else {
+      this.overlay.addEventListener('touchend', this.handleTouchEndEvent);
+      this.overlay.addEventListener('touchstart', this.handleTouchStartEvent);
+      this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
+    }
+  }
+
+  removeAllEventListeners() {
+    if (!this.hasTouchScreen) {
+      this.overlay.removeEventListener('mouseleave', this.handleMouseLeaveEvent);
+      this.overlay.removeEventListener('mouseenter', this.handleMouseEnterEvent);
+      this.overlay.removeEventListener('mousemove', this.handleMouseMoveEvent);
+    } else {
+      this.overlay.removeEventListener('touchend', this.handleTouchEndEvent);
+      this.overlay.removeEventListener('touchstart', this.handleTouchStartEvent);
+      this.overlay.removeEventListener('touchmove', this.handleTouchMoveEvent);
+    }
+  }
+
+  handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
+  handleMouseEnter() { this.container.style.transition = 'unset'; }
+  handleMouseMove(e) {
+    e.preventDefault();
+    if (!this._isOpen) return;
+
+    if (this.hasTouchScreen) {
+      const rect = e.touches[0].target.getBoundingClientRect()
+      e.offsetX = e.touches[0].pageX - rect.left;
+      e.offsetY = e.touches[0].pageY - rect.top;
+    }
+
+    const perspectiveOffsets = this._computedValues(
+      this.overlay,
+      e.offsetX,
+      e.offsetY
+    );
+
+    this.container.style.perspectiveOrigin = perspectiveOffsets;
+  }
+  handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
+  handleTouchStart() { this.container.style.transition = 'unset'; };
+
+
+
 
   static get observedAttributes() {
     return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
   }
 
-  get layers() {
-    return this._layers;
-  }
-  set layers(val) {
-    if (!val || !val.layers.length) return;
-
-    this._calculateLayers(val);
-
-  }
-
-  connectedCallback() {
-
-    if (!this.hasTouchScreen) {
-      this.overlay.addEventListener('mouseleave', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' });
-      this.overlay.addEventListener('mouseenter', () => { this.container.style.transition = 'unset'; });
-      this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    } else {
-      this.overlay.addEventListener('touchend', () => { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; });
-      this.overlay.addEventListener('touchstart', () => { this.container.style.transition = 'unset'; });
-      this.overlay.addEventListener('touchmove', this.handleMouseMove.bind(this));
-    }
-  }
 
   attributeChangedCallback(attr, oldval, newval) {
 
@@ -108,7 +157,10 @@ class StageComponent extends HTMLElement {
       }
     }
     if (attr === 'disable-parallax') {
-      // newval === 'true' ? this.disableYAxis = true : this.disableYAxis = false;
+      if (this.hasAttribute('disable-parallax')) {
+        console.log('i am gonna remove eventlisteners');
+        this.removeAllEventListeners();
+      }
     }
   }
 
@@ -173,24 +225,7 @@ class StageComponent extends HTMLElement {
     };
   }
 
-  handleMouseMove(e) {
-    e.preventDefault();
-    if (!this._isOpen) return;
 
-    if (this.hasTouchScreen) {
-      const rect = e.touches[0].target.getBoundingClientRect()
-      e.offsetX = e.touches[0].pageX - rect.left;
-      e.offsetY = e.touches[0].pageY - rect.top;
-    }
-
-    const perspectiveOffsets = this._computedValues(
-      this.overlay,
-      e.offsetX,
-      e.offsetY
-    );
-
-    this.container.style.perspectiveOrigin = perspectiveOffsets;
-  }
 }
 
 window.customElements.define('ph-stage', StageComponent);
