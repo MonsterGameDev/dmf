@@ -115,8 +115,8 @@ class StageComponent extends HTMLElement {
   handleMouseMove(e) {
     e.preventDefault();
     if (!this._isOpen) return;
-    alert('pageY: ' + e.touches[0].pageY + "rect.top: " + rect.top)
     if (this.hasTouchScreen) {
+      alert('pageY: ' + e.touches[0].pageY + "rect.top: " + rect.top)
       const rect = e.touches[0].target.getBoundingClientRect()
       e.offsetX = e.touches[0].pageX - rect.left;
       e.offsetY = e.touches[0].pageY - rect.top;
