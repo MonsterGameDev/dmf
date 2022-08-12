@@ -1,26 +1,38 @@
 
 import './stage/stage.js';
 import './stage-opening/stage-opening-component.js'
-import StageRetrievalService from './../../shared/theater/stage-retrieval.service.js'
 
 const stageAndOpeningTemplate = document.createElement('template');
 stageAndOpeningTemplate.innerHTML = `
  <style>
+ :host * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
  .stage-and-opening-container {
     position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
  }
- 
+   
  .stage-container {
-    position: absolute;
+    width: 100%;
+    display: inline-block;
  }
 
  .stage-opening-container {
     position: absolute;
+    width: 100%;
+    display: inline-block;
  }
  </style>
  <div class="stage-and-opening-container">
     <div class="stage-container">
-        <ph-stage id="stage-and-opening-stage"></ph-stage>
+        <ph-stage blendmode="color-burn" overlay-color="red"></ph-stage>
     </div>
     <div class="stage-opening-container">
         <ph-stage-opening size="medium"></ph-stage-opening>
@@ -29,12 +41,20 @@ stageAndOpeningTemplate.innerHTML = `
  `;
 
 class StageAndOpeningComponent extends HTMLElement {
-    get config() {
-        return this._config
+
+    set stageConfig(val) {
+        this._stageConfig = val;
+
+        const phStage = this.shadowRoot.querySelector('ph-stage');
+        phStage.layers = this._stageConfig;
     }
-    set config(val) {
-        this._config = val;
-        this.render(val);
+
+    set stageOpeningConfig(val) {
+        this._stageOpeningConfig = val
+
+        const phStageOpening = this.shadowRoot.querySelector('ph-stage-opening');
+        phStageOpening.layers = this._stageOpeningConfig;
+
     }
 
 
@@ -45,28 +65,14 @@ class StageAndOpeningComponent extends HTMLElement {
         const templateContent = stageAndOpeningTemplate.content;
         this.shadowRoot.appendChild(templateContent.cloneNode(true));
 
-        this._stage = '';
+        this._stageConfig = {};
+        this._stageOpeningConfig = {};
 
-        this.stageRetrievalService = new StageRetrievalService();
 
     }
 
     render(val) {
         if (!val) return;
-
-
-
-        const phStage = this.shadowRoot.querySelector('ph-stage');
-        phStage.layers = stageLayers;
-
-        const phStageOpening = this.shadowRoot.querySelector('ph-stage-opening');
-        phStageOpening.layers = stageOpeningLayers;
-
-
-
-
-
-
 
     }
 

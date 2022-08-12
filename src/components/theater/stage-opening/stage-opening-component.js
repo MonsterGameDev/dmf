@@ -11,8 +11,8 @@ stageOpeningComponentTemplate.innerHTML = `
   overflow: hidden;
 
   display: flex;
-flex-direction: column;
-justify-content: baseline;
+  flex-direction: column;
+  justify-content: baseline;
 }
 
 .curtain {
@@ -63,7 +63,6 @@ class StageOpeningComponent extends HTMLElement {
   }
 
   set layers(val) {
-    console.log(val);
     this._layers = val;
     this._setUpImages(val)
   }

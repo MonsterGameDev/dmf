@@ -26,6 +26,7 @@ const groupConfig = {
   radiobuttons: _availableStages
 }
 const phStage = document.querySelector("ph-stage");
+phStage.addEventListener('stageclick', () => { console.log('stage was clicked') })
 const stageSelector = document.querySelector('ph-radio-button-group');
 stageSelector.groupConfig = groupConfig;
 phStage.layers = stageService.getStageById(groupConfig.selectedId);
@@ -42,3 +43,5 @@ phStageOpening.layers = stageOpening
 
 /** ------------------- STAGE AND OPENING SECTION -----------------------  **/
 const stageAndOpening = document.querySelector('ph-stage-and-opening');
+stageAndOpening.stageConfig = stageService.getStageById('pariseropera')
+stageAndOpening.stageOpeningConfig = stageService.getStageOpeningById('traditional');
