@@ -48,6 +48,9 @@ template.innerHTML = `
 `
 
 class StageComponent extends HTMLElement {
+  static get observedAttributes() {
+    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
+  }
   get layers() {
     return this._layers;
   }
@@ -62,7 +65,7 @@ class StageComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this._layers = [];
-    this._isOpen = false;
+    this._isOpen = true;
     this.disableYAxis = false;
     this.computed = null;
 
@@ -84,9 +87,6 @@ class StageComponent extends HTMLElement {
     this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
 
     this.addAllEventListeners()
-
-
-
   }
 
   addAllEventListeners() {
@@ -121,7 +121,7 @@ class StageComponent extends HTMLElement {
 
     if (this.hasTouchScreen) {
       const rect = e.touches[0].target.getBoundingClientRect()
-  
+
       e.offsetX = e.touches[0].pageX - rect.left;
       e.offsetY = e.touches[0].pageY - rect.top;
     }
@@ -137,28 +137,32 @@ class StageComponent extends HTMLElement {
   handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
   handleTouchStart() { this.container.style.transition = 'unset'; };
 
+  handleClick() { this._isOpen = !this._isOpen; }
 
 
 
-  static get observedAttributes() {
-    return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
-  }
+
 
 
   attributeChangedCallback(attr, oldval, newval) {
 
-    const handlePlay = this._handlePlay.bind(this);
+    const handlePlay = this.
+      handleClick.bind(this);
     if (oldval === newval) return;
     if (attr === 'blendmode') this.overlay.style.mixBlendMode = newval;
     if (attr === 'overlay-color') this.overlay.style.backgroundColor = newval;
     if (attr === 'click-to-activate') {
-      if (newval === 'false') {
-        this._isOpen = true;
-        this.overlay.removeEventListener('click', handlePlay);
-      } else {
+      if (this.hasAttribute('click-to-activate')) {
         this._isOpen = false;
         this.overlay.addEventListener('click', handlePlay);
       }
+      // if (newval === 'false') {
+      //   this._isOpen = true;
+      //   this.overlay.removeEventListener('click', handlePlay);
+      // } else {
+      //   this._isOpen = false;
+      //   this.overlay.addEventListener('click', handlePlay);
+      // }
     }
     if (attr === 'disable-parallax') {
       if (this.hasAttribute('disable-parallax')) {
@@ -206,10 +210,6 @@ class StageComponent extends HTMLElement {
       stage.appendChild(imgContainer);
 
     })
-  }
-
-  _handlePlay() {
-    this._isOpen = !this._isOpen;
   }
 
   _computedValues(element, mouseX, mouseY) {
