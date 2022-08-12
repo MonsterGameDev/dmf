@@ -44,7 +44,6 @@ template.innerHTML = `
           inset: 0;
           width: 100%;
           height: 100%;
-      
           z-index: 1;
       
         }
@@ -81,7 +80,6 @@ class StageComponent extends HTMLElement {
     return this._layers;
   }
   set layers(val) {
-    console.log(val)
     if (!val || !val.layers.length) return;
     this._calculateLayers(val);
   }
@@ -183,7 +181,6 @@ class StageComponent extends HTMLElement {
     }
     if (attr === 'disable-parallax') {
       if (this.hasAttribute('disable-parallax')) {
-        console.log('i am gonna remove eventlisteners');
         this.removeAllEventListeners();
       }
     }
@@ -199,7 +196,6 @@ class StageComponent extends HTMLElement {
   }
 
   _calculateLayers(val) {
-
     this.disableYAxis = val.disableYAxis;
     const layers = val.layers;
 
@@ -214,7 +210,7 @@ class StageComponent extends HTMLElement {
       const imgContainer = document.createElement('div');
       imgContainer.classList.add(['parallax']);
 
-      //  adding the essence of it all
+      //  Z-positioning layers
       layer.zIndex === 1
         ? imgContainer.setAttribute('style', `transform: translateZ(${backCurtainZpos}px) scale(${baseScale + i})`)
         : imgContainer.setAttribute('style', `position:absolute; z-index: ${layer.zIndex}; transform: translateZ(${backCurtainZpos + (layer.zIndex - 1) * 10}px) scale(${baseScale + i})`);
@@ -256,15 +252,6 @@ class StageComponent extends HTMLElement {
       height: parseInt(window.getComputedStyle(element).height),
     };
   }
-
-
 }
 
 window.customElements.define('ph-stage', StageComponent);
-
-
-
-// Private Service
-
-
-
