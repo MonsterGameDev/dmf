@@ -86,6 +86,8 @@ class StageComponent extends HTMLElement {
     this.handleTouchStartEvent = this.handleTouchStart.bind(this);
     this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
 
+    this.handleClick = this.handleClick.bind(this);
+
     this.addAllEventListeners()
   }
 
@@ -146,15 +148,14 @@ class StageComponent extends HTMLElement {
 
   attributeChangedCallback(attr, oldval, newval) {
 
-    const handlePlay = this.
-      handleClick.bind(this);
+
     if (oldval === newval) return;
     if (attr === 'blendmode') this.overlay.style.mixBlendMode = newval;
     if (attr === 'overlay-color') this.overlay.style.backgroundColor = newval;
     if (attr === 'click-to-activate') {
       if (this.hasAttribute('click-to-activate')) {
         this._isOpen = false;
-        this.overlay.addEventListener('click', handlePlay);
+        this.overlay.addEventListener('click', this.handleClick);
       }
       // if (newval === 'false') {
       //   this._isOpen = true;
