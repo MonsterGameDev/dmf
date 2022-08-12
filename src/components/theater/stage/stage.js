@@ -116,8 +116,6 @@ class StageComponent extends HTMLElement {
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
   handleMouseEnter() { this.container.style.transition = 'unset'; }
   handleMouseMove(e) {
-    // const xpos = e.offsetX;
-    // const ypos = e.offsetY;
     e.preventDefault();
     if (!this._isOpen) return;
 
