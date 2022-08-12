@@ -29,7 +29,6 @@ class UtilsService {
 }
 
 const template = document.createElement('template');
-
 template.innerHTML = `
         <style>
         :host * {
@@ -74,7 +73,6 @@ template.innerHTML = `
             <div class="stage-container"></div>
         </div>
 `
-
 class StageComponent extends HTMLElement {
   static get observedAttributes() {
     return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
@@ -83,6 +81,7 @@ class StageComponent extends HTMLElement {
     return this._layers;
   }
   set layers(val) {
+    console.log(val)
     if (!val || !val.layers.length) return;
     this._calculateLayers(val);
   }
@@ -104,7 +103,6 @@ class StageComponent extends HTMLElement {
 
     const utils = new UtilsService();
     this.hasTouchScreen = utils.hasTouchScreen;
-
 
     this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
     this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
