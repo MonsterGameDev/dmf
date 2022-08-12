@@ -42,4 +42,3 @@ phStageOpening.layers = stageOpening
 
 /** ------------------- STAGE AND OPENING SECTION -----------------------  **/
 const stageAndOpening = document.querySelector('ph-stage-and-opening');
-const stage
