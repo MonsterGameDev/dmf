@@ -1,5 +1,33 @@
+class UtilsService {
+  constructor() {
+    this._hasTouchScreen = false;
+  }
 
-import Utils from './../../../shared/utils/utils.js'
+  get hasTouchScreen() {
+    if ("maxTouchPoints" in navigator) {
+      this._hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ("msMaxTouchPoints" in navigator) {
+      this._hasTouchScreen = navigator.msMaxTouchPoints > 0;
+    } else {
+      var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+      if (mQ && mQ.media === "(pointer:coarse)") {
+        this._hasTouchScreen = !!mQ.matches;
+      } else if ('orientation' in window) {
+        this._hasTouchScreen = true; // deprecated, but good fallback
+      } else {
+        // Only as a last resort, fall back to user agent sniffing
+        var UA = navigator.userAgent;
+        this._hasTouchScreen = (
+          /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+          /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+        );
+      }
+    }
+
+    return this._hasTouchScreen
+  }
+}
+
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -56,9 +84,7 @@ class StageComponent extends HTMLElement {
   }
   set layers(val) {
     if (!val || !val.layers.length) return;
-
     this._calculateLayers(val);
-
   }
 
   constructor() {
@@ -72,11 +98,13 @@ class StageComponent extends HTMLElement {
     const templateContent = template.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
 
-    this.container = this.shadowRoot.querySelector('.stage-container')
+    this.container = this.shadowRoot.querySelector('.stage-container');
     this.overlay = this.shadowRoot.querySelector('.overlay');
 
-    const utils = new Utils();
+
+    const utils = new UtilsService();
     this.hasTouchScreen = utils.hasTouchScreen;
+
 
     this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
     this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
@@ -85,10 +113,12 @@ class StageComponent extends HTMLElement {
     this.handleTouchEndEvent = this.handleTouchEnd.bind(this);
     this.handleTouchStartEvent = this.handleTouchStart.bind(this);
     this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
+    this.addAllEventListeners()
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleDispatchClick = this.handleDispatchClick.bind(this);
 
-    this.addAllEventListeners()
+    this.overlay.addEventListener('click', this.handleDispatchClick);
   }
 
   addAllEventListeners() {
@@ -140,30 +170,18 @@ class StageComponent extends HTMLElement {
   handleTouchStart() { this.container.style.transition = 'unset'; };
 
   handleClick() { this._isOpen = !this._isOpen; }
-
-
-
-
-
+  handleDispatchClick() { const stageClickEvent = new Event('stageclick'); this.dispatchEvent(stageClickEvent); }
 
   attributeChangedCallback(attr, oldval, newval) {
-
-
     if (oldval === newval) return;
     if (attr === 'blendmode') this.overlay.style.mixBlendMode = newval;
     if (attr === 'overlay-color') this.overlay.style.backgroundColor = newval;
     if (attr === 'click-to-activate') {
       if (this.hasAttribute('click-to-activate')) {
         this._isOpen = false;
+        this.overlay.removeEventListener('click', this.handleDispatchClick);
         this.overlay.addEventListener('click', this.handleClick);
       }
-      // if (newval === 'false') {
-      //   this._isOpen = true;
-      //   this.overlay.removeEventListener('click', handlePlay);
-      // } else {
-      //   this._isOpen = false;
-      //   this.overlay.addEventListener('click', handlePlay);
-      // }
     }
     if (attr === 'disable-parallax') {
       if (this.hasAttribute('disable-parallax')) {
@@ -245,3 +263,10 @@ class StageComponent extends HTMLElement {
 }
 
 window.customElements.define('ph-stage', StageComponent);
+
+
+
+// Private Service
+
+
+
