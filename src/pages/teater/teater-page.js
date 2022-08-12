@@ -2,6 +2,7 @@ import "./teater-page.scss";
 import "./../../components/theater/stage/stage.js";
 import "./../../components/form-components/radio-button-group-component.js"
 import "./../../components/theater/stage-opening/stage-opening-component.js";
+import "./../../components/theater/stage-and-opening.js";
 
 import StageRetrievalService from "../../shared/theater/stage-retrieval.service";
 
@@ -38,3 +39,7 @@ stageSelector.addEventListener('change', (e) => {
 const stageOpening = stageService.getStageOpeningById('traditional');
 const phStageOpening = document.querySelector('ph-stage-opening');
 phStageOpening.layers = stageOpening
+
+/** ------------------- STAGE AND OPENING SECTION -----------------------  **/
+const stageAndOpening = document.querySelector('ph-stage-and-opening');
+const stage
