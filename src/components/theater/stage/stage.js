@@ -151,18 +151,41 @@ class StageComponent extends HTMLElement {
     e.preventDefault();
     if (!this._isOpen) return;
 
-    if (this.hasTouchScreen) {
-      const rect = e.touches[0].target.getBoundingClientRect()
+    // if (this.hasTouchScreen) {
+    //   const rect = e.touches[0].target.getBoundingClientRect()
 
-      e.offsetX = e.touches[0].pageX - rect.left;
-      e.offsetY = e.touches[0].pageY - rect.top;
+    //   e.offsetX = e.touches[0].pageX - rect.left;
+    //   e.offsetY = e.touches[0].pageY - rect.top;
+    // }
+
+    const position = {
+      x: (e.targetTouches) ? e.targetTouches[0].pageX : e.offsetX,
+      y: (e.targetTouches) ? e.targetTouches[0].pageY : e.offsetY
+    };
+
+    while (parent.offsetParent) {
+      position.x -= parent.offsetLeft - parent.scrollLeft;
+      position.y -= parent.offsetTop - parent.scrollTop;
+
+      parent = parent.offsetParent;
     }
+
 
     const perspectiveOffsets = this._computedValues(
       this.overlay,
-      e.offsetX,
-      e.offsetY
+      position.x,
+      position.y
     );
+
+
+
+
+
+    // const perspectiveOffsets = this._computedValues(
+    //   this.overlay,
+    //   e.offsetX,
+    //   e.offsetY
+    // );
 
     this.container.style.perspectiveOrigin = perspectiveOffsets;
   }
