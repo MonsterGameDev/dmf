@@ -148,53 +148,34 @@ class StageComponent extends HTMLElement {
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
   handleMouseEnter() { this.container.style.transition = 'unset'; }
   handleMouseMove(e) {
+    console.log('handleMouseMove')
     e.preventDefault();
     if (!this._isOpen) return;
 
-    // if (this.hasTouchScreen) {
-    //   const rect = e.touches[0].target.getBoundingClientRect()
-
-    //   e.offsetX = e.touches[0].pageX - rect.left;
-    //   e.offsetY = e.touches[0].pageY - rect.top;
-    // }
+    const rect = (e.targetTouches) ? e.targetTouches[0].getBoundingClientRect() : e.target.getBoundingClientRect();
 
     const position = {
-      x: (e.targetTouches) ? e.targetTouches[0].offsetLeft : e.offsetX,
-      y: (e.targetTouches) ? e.targetTouches[0].offsetTop : e.offsetY
+      x: (e.targetTouches) ? e.targetTouches[0].clientX - rect.x : e.offsetX,
+      y: (e.targetTouches) ? e.targetTouches[0].clientY - rect.y : e.offsetY,
     };
+    console.log('x: ' + position.x + 'y: ' + position.y);
 
-    alert('1: e.targetTouches[0].offsetLeft' + e.targetTouches[0].offsetLeft + '\n\r' + ' e.offsetX:  ' + e.offsetX)
-    alert('1: e.targetTouches[0].offsetTop' + e.targetTouches[0].offsetTop + '\n\r' + ' e.offsetY:  ' + e.offsetY)
+    const targetSize = {
+      width: (rect.right - rect.left),
+      height: (rect.bottom - rect.top)
+    }
 
-    // if (parent.offsetParent) { alert('offsetLeft: ' + parent.offsetLeft + '\r\n offsetTop; ' + parent.offsetTop) }
+    console.log('targetSize: ', targetSize);
 
-    // //while (parent.offsetParent) {
+    const xpos = (position.x / targetSize.width * 100) + '%';
+    const ypos = (position.y / targetSize.height * 100) + '%';
+    const perspectiveOffsets = xpos + ' ' + ypos;
 
-    //   position.x -= e.target.offsetLeft - parent.scrollLeft;
-    //   position.y -= e.target.offsetTop - parent.scrollTop;
-
-    //   parent = parent.offsetParent;
-    // }
-
-
-    const perspectiveOffsets = this._computedValues(
-      this.overlay,
-      position.x,
-      position.y
-    );
-
-
-
-
-
-    // const perspectiveOffsets = this._computedValues(
-    //   this.overlay,
-    //   e.offsetX,
-    //   e.offsetY
-    // );
+    console.log('pOrign: ', perspectiveOffsets);
 
     this.container.style.perspectiveOrigin = perspectiveOffsets;
   }
+
   handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
   handleTouchStart() { this.container.style.transition = 'unset'; };
 
