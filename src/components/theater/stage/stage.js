@@ -66,6 +66,7 @@ class StageComponent extends HTMLElement {
     this.disableYAxis = false;
     this.computed = null;
     this.targetRect = null;
+    this.targetSize = null;
 
     const templateContent = template.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -73,14 +74,14 @@ class StageComponent extends HTMLElement {
     this.container = this.shadowRoot.querySelector('.stage-container');
     this.overlay = this.shadowRoot.querySelector('.overlay');
 
-    this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
-    this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
-    this.handleMouseMoveEvent = this.handleMouseMove.bind(this);
+    this.handleMouseEnterEvent = this.handleMouseEnterAndTouchStart.bind(this);
+    this.handleMouseMoveEvent = this.handleMouseAndTouchMove.bind(this);
+    this.handleMouseLeaveEvent = this.handleMouseLeaveAndTouchEnd.bind(this);
 
-    this.handleTouchEndEvent = this.handleTouchEnd.bind(this);
-    this.handleTouchStartEvent = this.handleTouchStart.bind(this);
-    this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
-    
+    this.handleTouchStartEvent = this.handleMouseEnterAndTouchStart.bind(this);
+    this.handleTouchMoveEvent = this.handleMouseAndTouchMove.bind(this);
+    this.handleTouchEndEvent = this.handleMouseLeaveAndTouchEnd.bind(this);
+
     this.addAllEventListeners()
 
     this.handleClick = this.handleClick.bind(this);
@@ -100,7 +101,6 @@ class StageComponent extends HTMLElement {
       this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
     }
   }
-
   removeAllEventListeners() {
     if (!this.hasTouchScreen) {
       this.overlay.removeEventListener('mouseleave', this.handleMouseLeaveEvent);
@@ -113,41 +113,44 @@ class StageComponent extends HTMLElement {
     }
   }
 
-  handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
-  handleMouseEnter(e) {
+  handleMouseLeaveAndTouchEnd() {
+    this.container.style.transition = 'perspective-origin 1s';
+    this.container.style.perspectiveOrigin = '50% 50%'
+  }
+  handleMouseEnterAndTouchStart(e) {
     this.container.style.transition = 'unset';
     this.targetRect = (e.targetTouches) ? e.touches[0].target.getBoundingClientRect() : e.target.getBoundingClientRect();
-    alert(this.targetRect.top)
-  }
-  handleMouseMove(e) {
-    try {
-      e.preventDefault();
-      if (!this._isOpen) return;
 
-      const position = {
-        x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
-        y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
-      };
-
-      const targetSize = {
-        width: (targetRect.right - targetRect.left),
-        height: (targetRect.bottom - targetRect.top)
-      }
-
-      const xpos = (position.x / targetSize.width * 100) + '%';
-      const ypos = (position.y / targetSize.height * 100) + '%';
-      const perspectiveOffsets = xpos + ' ' + ypos;
-
-
-      this.container.style.perspectiveOrigin = perspectiveOffsets;
-    } catch (error) {
-      alert('ERROR: ' + error.message)
+    this.targetSize = {
+      width: (this.targetRect.right - this.targetRect.left),
+      height: (this.targetRect.bottom - this.targetRect.top)
     }
+    console.log(this.targetRect)
+  }
+  handleMouseAndTouchMove(e) {
+    // try {
+    e.preventDefault();
+    if (!this._isOpen) return;
+
+    const position = {
+      x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
+      y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
+    };
+
+
+
+    const xpos = (position.x / this.targetSize.width * 100) + '%';
+    const ypos = (position.y / this.targetSize.height * 100) + '%';
+    const perspectiveOffsets = xpos + ' ' + ypos;
+
+
+    this.container.style.perspectiveOrigin = perspectiveOffsets;
+    // }
+    // catch (error) {
+    //   alert('ERROR: ' + error.message)
+    // }
 
   }
-
-  handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
-  handleTouchStart() { this.container.style.transition = 'unset'; };
 
   handleClick() { this._isOpen = !this._isOpen; }
   handleDispatchClick() { const stageClickEvent = new Event('stageclick'); this.dispatchEvent(stageClickEvent); }
