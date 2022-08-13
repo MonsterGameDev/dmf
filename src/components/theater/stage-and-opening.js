@@ -32,7 +32,7 @@ stageAndOpeningTemplate.innerHTML = `
  }
  ph-stage-opening {
     position: relative;
-    z-index: 1;
+    z-index: 10;
     pointer-events: all;
  }
 
@@ -62,7 +62,7 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
-            alert('3:stage clicked')
+            alert('4 :stage clicked')
             this.phStageOpening.style.pointerEvents = 'all';
             this.phStageOpening.lowerCurtain().play();
             this.isCurtainUp = false;
