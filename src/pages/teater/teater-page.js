@@ -39,6 +39,10 @@ stageSelector.addEventListener('change', (e) => {
 
 const stageOpening = stageService.getStageOpeningById('traditional');
 const phStageOpening = document.querySelector('ph-stage-opening');
+phStageOpening.addEventListener('raiseCurtainAnimationStart', () => console.log('Raise Curtain Started'));
+phStageOpening.addEventListener('lowerCurtainAnimationStart', () => console.log('Lower Curtain Started'));
+phStageOpening.addEventListener('raiseCurtainAnimationEnd', () => console.log('Raise Curtain Ended'));
+phStageOpening.addEventListener('lowerCurtainAnimationEnd', () => console.log('Lower Curtain Ended'));
 phStageOpening.layers = stageOpening
 
 /** ------------------- STAGE AND OPENING SECTION -----------------------  **/
