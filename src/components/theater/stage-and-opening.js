@@ -2,6 +2,8 @@
 import './stage/stage.js';
 import './stage-opening/stage-opening-component.js'
 
+
+
 const stageAndOpeningTemplate = document.createElement('template');
 stageAndOpeningTemplate.innerHTML = `
  <style>
@@ -21,30 +23,32 @@ stageAndOpeningTemplate.innerHTML = `
    
  .stage-container {
     width: 100%;
-    display: inline-block;
-
+    display: inline-block;  
  }
 
  .stage-opening-container {
-    
     width: 100%;
     display: inline-block;
     pointer-events: all;
    
     position: absolute;
-
  }
 
  </style>
  <div class="stage-and-opening-container">
     <div class="stage-container">
-        <ph-stage blendmode="color-burn" overlay-color="normal"></ph-stage>
+        <ph-stage blendmode="color-burn" overlay-color="#fcbe7b99"></ph-stage>
     </div>
     <div class="stage-opening-container" style="pointer-events: all;">
         <ph-stage-opening size="medium"></ph-stage-opening>
     </div>
  </div>
  `;
+/**
+ reddish #ff9e9e99
+ bynight #7b84fc99
+ warm: #fcbe7b99
+ */
 
 class StageAndOpeningComponent extends HTMLElement {
 
@@ -52,7 +56,7 @@ class StageAndOpeningComponent extends HTMLElement {
         this._stageConfig = val;
 
         const phStage = this.shadowRoot.querySelector('ph-stage');
-        phStage.layers = this._stageConfig;
+        phStage.config = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
             this.stageOpeningContainer.style.pointerEvents = "all"
@@ -98,17 +102,6 @@ class StageAndOpeningComponent extends HTMLElement {
         this.phStage = this.shadowRoot.querySelector('ph-stage');
 
         this.stageOpeningContainer = this.shadowRoot.querySelector('.stage-opening-container');
-
-
-
-
-
-
-
-    }
-
-    render(val) {
-        if (!val) return;
 
     }
 

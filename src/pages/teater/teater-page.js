@@ -29,9 +29,9 @@ const phStage = document.querySelector("ph-stage");
 phStage.addEventListener('stageclick', () => { console.log('stage was clicked') })
 const stageSelector = document.querySelector('ph-radio-button-group');
 stageSelector.groupConfig = groupConfig;
-phStage.layers = stageService.getStageById(groupConfig.selectedId);
+phStage.config = stageService.getStageById(groupConfig.selectedId);
 stageSelector.addEventListener('change', (e) => {
-  phStage.layers = stageService.getStageById(e.detail);
+  phStage.config = stageService.getStageById(e.detail);
 
 })
 

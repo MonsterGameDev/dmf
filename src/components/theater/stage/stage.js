@@ -50,19 +50,19 @@ class StageComponent extends HTMLElement {
   static get observedAttributes() {
     return ['blendmode', 'overlay-color', 'click-to-activate', 'disable-parallax'];
   }
-  get layers() {
-    return this._layers;
+  get config() {
+    return this._config;
   }
-  set layers(val) {
+  set config(val) {
     if (!val || !val.layers.length) return;
-    this._layers = val;
+    this._config = val;
     this._calculateLayers(val);
   }
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this._layers = [];
+    this._config = [];
     this._isOpen = true;
     this.restrictYAxis = false;
     this.computed = null;
@@ -83,7 +83,7 @@ class StageComponent extends HTMLElement {
     this.handleTouchMoveEvent = this.handleMouseAndTouchMove.bind(this);
     this.handleTouchEndEvent = this.handleMouseLeaveAndTouchEnd.bind(this);
 
-    this.addAllEventListeners()
+    this.addAllMoveEventListeners()
 
     this.handleClick = this.handleClick.bind(this);
     this.handleDispatchClick = this.handleDispatchClick.bind(this);
@@ -91,7 +91,7 @@ class StageComponent extends HTMLElement {
     this.overlay.addEventListener('click', this.handleDispatchClick);
   }
 
-  addAllEventListeners() {
+  addAllMoveEventListeners() {
     this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
     this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
     this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
@@ -101,7 +101,7 @@ class StageComponent extends HTMLElement {
     this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
 
   }
-  removeAllEventListeners() {
+  removeAllMoveEventListeners() {
     if (!this.hasTouchScreen) {
       this.overlay.removeEventListener('mouseleave', this.handleMouseLeaveEvent);
       this.overlay.removeEventListener('mouseenter', this.handleMouseEnterEvent);
@@ -144,7 +144,7 @@ class StageComponent extends HTMLElement {
 
       const minYPos = 36;
       let maxYPos = 83;
-      if (this._layers?.restrictYAxis) maxYPos = 50;
+      if (this._config?.restrictYAxis) maxYPos = 50;
 
       let ypos = (position.y / this.targetSize.height * 100);
       if (ypos < minYPos) ypos = minYPos;
@@ -177,7 +177,7 @@ class StageComponent extends HTMLElement {
     }
     if (attr === 'disable-parallax') {
       if (this.hasAttribute('disable-parallax')) {
-        this.removeAllEventListeners();
+        this.removeAllMoveEventListeners();
       }
     }
   }
@@ -188,8 +188,7 @@ class StageComponent extends HTMLElement {
     const layers = val.layers;
 
     const stage = this.shadowRoot.querySelector('.stage-container');
-    // reset before drawing
-    stage.innerHTML = '';
+    stage.innerHTML = ''; //reset
 
     const backCurtainZpos = -((layers.length * 10) - 5);
     const baseScale = 1.5;
