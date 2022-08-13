@@ -91,15 +91,14 @@ class StageComponent extends HTMLElement {
   }
 
   addAllEventListeners() {
-    if (!this.hasTouchScreen) {
       this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
       this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
       this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
-    } else {
+   
       this.overlay.addEventListener('touchend', this.handleTouchEndEvent);
       this.overlay.addEventListener('touchstart', this.handleTouchStartEvent);
       this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
-    }
+
   }
   removeAllEventListeners() {
     if (!this.hasTouchScreen) {
