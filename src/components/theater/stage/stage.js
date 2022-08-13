@@ -128,6 +128,7 @@ class StageComponent extends HTMLElement {
     console.log(this.targetRect)
   }
   handleMouseAndTouchMove(e) {
+    alert('1: handleMouseAndTuchMove')
     try {
       e.preventDefault();
       if (!this._isOpen) return;
