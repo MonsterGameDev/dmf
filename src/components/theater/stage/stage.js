@@ -91,13 +91,13 @@ class StageComponent extends HTMLElement {
   }
 
   addAllEventListeners() {
-      this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
-      this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
-      this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
-   
-      this.overlay.addEventListener('touchend', this.handleTouchEndEvent);
-      this.overlay.addEventListener('touchstart', this.handleTouchStartEvent);
-      this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
+    this.overlay.addEventListener('mouseleave', this.handleMouseLeaveEvent);
+    this.overlay.addEventListener('mouseenter', this.handleMouseEnterEvent);
+    this.overlay.addEventListener('mousemove', this.handleMouseMoveEvent);
+
+    this.overlay.addEventListener('touchend', this.handleTouchEndEvent);
+    this.overlay.addEventListener('touchstart', this.handleTouchStartEvent);
+    this.overlay.addEventListener('touchmove', this.handleTouchMoveEvent);
 
   }
   removeAllEventListeners() {
@@ -127,14 +127,14 @@ class StageComponent extends HTMLElement {
     console.log(this.targetRect)
   }
   handleMouseAndTouchMove(e) {
-    alert('1: handleMouseAndTuchMove')
+    // alert('1: handleMouseAndTuchMove')
     try {
       e.preventDefault();
       if (!this._isOpen) return;
 
       const position = {
-        x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
-        y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
+        x: (e.targetTouches) ? e.targetTouches[0].clientX - this.targetRect.x : e.offsetX,
+        y: (e.targetTouches) ? e.targetTouches[0].clientY - this.targetRect.y : e.offsetY,
       };
 
       const xpos = (position.x / this.targetSize.width * 100) + '%';
@@ -143,6 +143,8 @@ class StageComponent extends HTMLElement {
 
 
       this.container.style.perspectiveOrigin = perspectiveOffsets;
+
+
     }
     catch (error) {
       alert('ERROR: ' + error.message)
