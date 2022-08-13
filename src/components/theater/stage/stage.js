@@ -148,32 +148,43 @@ class StageComponent extends HTMLElement {
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
   handleMouseEnter() { this.container.style.transition = 'unset'; }
   handleMouseMove(e) {
-    console.log('handleMouseMove')
-    e.preventDefault();
-    if (!this._isOpen) return;
 
-    const rect = (e.targetTouches) ? e.targetTouches[0].getBoundingClientRect() : e.target.getBoundingClientRect();
+    try {
+      console.log('handleMouseMove')
+      alert('2 -handleTouchMove');
+      e.preventDefault();
+      if (!this._isOpen) return;
 
-    const position = {
-      x: (e.targetTouches) ? e.targetTouches[0].clientX - rect.x : e.offsetX,
-      y: (e.targetTouches) ? e.targetTouches[0].clientY - rect.y : e.offsetY,
-    };
-    console.log('x: ' + position.x + 'y: ' + position.y);
+      const rect = (e.targetTouches) ? e.targetTouches[0].getBoundingClientRect() : e.target.getBoundingClientRect();
 
-    const targetSize = {
-      width: (rect.right - rect.left),
-      height: (rect.bottom - rect.top)
+      const position = {
+        x: (e.targetTouches) ? e.targetTouches[0].clientX - rect.x : e.offsetX,
+        y: (e.targetTouches) ? e.targetTouches[0].clientY - rect.y : e.offsetY,
+      };
+
+      console.log('x: ' + position.x + 'y: ' + position.y);
+      alert('x: ' + position.x + 'y: ' + position.y);
+
+      const targetSize = {
+        width: (rect.right - rect.left),
+        height: (rect.bottom - rect.top)
+      }
+
+      console.log('targetSize: ', targetSize);
+      alert('targetSize: ' + targetSize);
+
+      const xpos = (position.x / targetSize.width * 100) + '%';
+      const ypos = (position.y / targetSize.height * 100) + '%';
+      const perspectiveOffsets = xpos + ' ' + ypos;
+
+      console.log('pOrign: ', perspectiveOffsets);
+      alert('pOrign: ' + perspectiveOffsets);
+
+      this.container.style.perspectiveOrigin = perspectiveOffsets;
+    } catch (error) {
+      alert('ERROR: ')
     }
 
-    console.log('targetSize: ', targetSize);
-
-    const xpos = (position.x / targetSize.width * 100) + '%';
-    const ypos = (position.y / targetSize.height * 100) + '%';
-    const perspectiveOffsets = xpos + ' ' + ypos;
-
-    console.log('pOrign: ', perspectiveOffsets);
-
-    this.container.style.perspectiveOrigin = perspectiveOffsets;
   }
 
   handleTouchEnd() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%'; };
