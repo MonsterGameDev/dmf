@@ -53,8 +53,10 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
+            console.log('stage clicked')
             this.phStageOpening.style.pointerEvents = 'all';
             this.phStageOpening.lowerCurtain().play();
+            this.isCurtainUp = false;
         })
     }
 
@@ -64,21 +66,20 @@ class StageAndOpeningComponent extends HTMLElement {
     }
 
     _setupStageOpening(val) {
-        let isCurtainUp = false;
+
         this._stageOpeningConfig = val
         this.phStageOpening.layers = this._stageOpeningConfig;
         this.phStageOpening.addEventListener('click', () => {
-
-            if (!isCurtainUp) {
+            console.log('clicked - isCurtainUp', this.isCurtainUp)
+            if (!this.isCurtainUp) {
+                console.log('calling raiseCurtain')
                 this.phStageOpening.raiseCurtain().play();
                 this.phStageOpening.style.pointerEvents = 'none';
-                isCurtainUp = true;
+                this.isCurtainUp = true;
             } else {
-                this.phStageOpening.lowerCurtain().play();
-                this.phStageOpening.style.pointerEvents = "all"
-                isCurtainUp = false;
+                // will never trigger as  stage takes over pointerevents
             }
-            console.log('stageOpeningClick');
+
         });
     }
 
@@ -89,6 +90,7 @@ class StageAndOpeningComponent extends HTMLElement {
 
         this._stageConfig = {};
         this._stageOpeningConfig = {};
+        this.isCurtainUp = false;
 
         const templateContent = stageAndOpeningTemplate.content;
         this.shadowRoot.appendChild(templateContent.cloneNode(true));
