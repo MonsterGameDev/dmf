@@ -39,7 +39,7 @@ stageAndOpeningTemplate.innerHTML = `
         <ph-stage blendmode="color-burn" overlay-color="red"></ph-stage>
     </div>
     <div class="stage-opening-container">
-        <ph-stage-opening size="medium"></ph-stage-opening>
+        <ph-stage-opening size="medium" style="pointer-events: all"></ph-stage-opening>
     </div>
  </div>
  `;
