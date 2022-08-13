@@ -159,19 +159,22 @@ class StageComponent extends HTMLElement {
     // }
 
     const position = {
-      x: (e.targetTouches) ? e.targetTouches[0].pageX : e.offsetX,
-      y: (e.targetTouches) ? e.targetTouches[0].pageY : e.offsetY
+      x: (e.targetTouches) ? e.targetTouches[0].offsetLeft : e.offsetX,
+      y: (e.targetTouches) ? e.targetTouches[0].offsetTop : e.offsetY
     };
 
-    if (parent.offsetParent) { alert('offsetLeft: ' + parent.offsetLeft + '\r\n offsetTop; ' + parent.offsetTop) }
+    alert('1: e.targetTouches[0].offsetLeft' + e.targetTouches[0].offsetLeft + '\n\r' + ' e.offsetX:  ' + e.offsetX)
+    alert('1: e.targetTouches[0].offsetTop' + e.targetTouches[0].offsetTop + '\n\r' + ' e.offsetY:  ' + e.offsetY)
 
-    while (parent.offsetParent) {
+    // if (parent.offsetParent) { alert('offsetLeft: ' + parent.offsetLeft + '\r\n offsetTop; ' + parent.offsetTop) }
 
-      position.x -= parent.offsetLeft - parent.scrollLeft;
-      position.y -= parent.offsetTop - parent.scrollTop;
+    // //while (parent.offsetParent) {
 
-      parent = parent.offsetParent;
-    }
+    //   position.x -= e.target.offsetLeft - parent.scrollLeft;
+    //   position.y -= e.target.offsetTop - parent.scrollTop;
+
+    //   parent = parent.offsetParent;
+    // }
 
 
     const perspectiveOffsets = this._computedValues(
