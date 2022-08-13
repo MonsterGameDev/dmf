@@ -1,33 +1,3 @@
-class UtilsService {
-  constructor() {
-    this._hasTouchScreen = false;
-  }
-
-  get hasTouchScreen() {
-    if ("maxTouchPoints" in navigator) {
-      this._hasTouchScreen = navigator.maxTouchPoints > 0;
-    } else if ("msMaxTouchPoints" in navigator) {
-      this._hasTouchScreen = navigator.msMaxTouchPoints > 0;
-    } else {
-      var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
-      if (mQ && mQ.media === "(pointer:coarse)") {
-        this._hasTouchScreen = !!mQ.matches;
-      } else if ('orientation' in window) {
-        this._hasTouchScreen = true; // deprecated, but good fallback
-      } else {
-        // Only as a last resort, fall back to user agent sniffing
-        var UA = navigator.userAgent;
-        this._hasTouchScreen = (
-          /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-          /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-        );
-      }
-    }
-
-    return this._hasTouchScreen
-  }
-}
-
 const template = document.createElement('template');
 template.innerHTML = `
         <style>
@@ -95,16 +65,13 @@ class StageComponent extends HTMLElement {
     this._isOpen = true;
     this.disableYAxis = false;
     this.computed = null;
+    this.targetRect = null;
 
     const templateContent = template.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
 
     this.container = this.shadowRoot.querySelector('.stage-container');
     this.overlay = this.shadowRoot.querySelector('.overlay');
-
-
-    const utils = new UtilsService();
-    this.hasTouchScreen = utils.hasTouchScreen;
 
     this.handleMouseLeaveEvent = this.handleMouseLeave.bind(this);
     this.handleMouseEnterEvent = this.handleMouseEnter.bind(this);
@@ -113,6 +80,7 @@ class StageComponent extends HTMLElement {
     this.handleTouchEndEvent = this.handleTouchEnd.bind(this);
     this.handleTouchStartEvent = this.handleTouchStart.bind(this);
     this.handleTouchMoveEvent = this.handleMouseMove.bind(this);
+    
     this.addAllEventListeners()
 
     this.handleClick = this.handleClick.bind(this);
@@ -146,39 +114,30 @@ class StageComponent extends HTMLElement {
   }
 
   handleMouseLeave() { this.container.style.transition = 'perspective-origin 1s'; this.container.style.perspectiveOrigin = '50% 50%' }
-  handleMouseEnter() { this.container.style.transition = 'unset'; }
+  handleMouseEnter(e) {
+    this.container.style.transition = 'unset';
+    this.targetRect = (e.targetTouches) ? e.touches[0].target.getBoundingClientRect() : e.target.getBoundingClientRect();
+    alert(this.targetRect.top)
+  }
   handleMouseMove(e) {
-
     try {
-      // console.log('handleMouseMove')
-      // alert('4 -handleTouchMove');
       e.preventDefault();
       if (!this._isOpen) return;
 
-      const rect = (e.targetTouches) ? e.touches[0].target.getBoundingClientRect() : e.target.getBoundingClientRect();
-
       const position = {
-        x: (e.targetTouches) ? e.targetTouches[0].clientX - rect.x : e.offsetX,
-        y: (e.targetTouches) ? e.targetTouches[0].clientY - rect.y : e.offsetY,
+        x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
+        y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
       };
 
-      // console.log('x: ' + position.x + 'y: ' + position.y);
-      // alert('x: ' + position.x + 'y: ' + position.y);
-
       const targetSize = {
-        width: (rect.right - rect.left),
-        height: (rect.bottom - rect.top)
+        width: (targetRect.right - targetRect.left),
+        height: (targetRect.bottom - targetRect.top)
       }
-
-      // console.log('targetSize: ', targetSize);
-      // alert('targetSize: ' + targetSize);
 
       const xpos = (position.x / targetSize.width * 100) + '%';
       const ypos = (position.y / targetSize.height * 100) + '%';
       const perspectiveOffsets = xpos + ' ' + ypos;
 
-      // console.log('pOrign: ', perspectiveOffsets);
-      // alert('pOrign: ' + perspectiveOffsets);
 
       this.container.style.perspectiveOrigin = perspectiveOffsets;
     } catch (error) {
