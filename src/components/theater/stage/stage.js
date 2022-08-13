@@ -151,11 +151,11 @@ class StageComponent extends HTMLElement {
 
     try {
       console.log('handleMouseMove')
-      alert('3 -handleTouchMove');
+      alert('4 -handleTouchMove');
       e.preventDefault();
       if (!this._isOpen) return;
 
-      const rect = (e.targetTouches) ? e.targetTouches[0].getBoundingClientRect() : e.target.getBoundingClientRect();
+      const rect = (e.targetTouches) ? e.touches[0].target.getBoundingClientRect() : e.target.getBoundingClientRect();
 
       const position = {
         x: (e.targetTouches) ? e.targetTouches[0].clientX - rect.x : e.offsetX,
