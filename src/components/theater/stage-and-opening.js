@@ -59,7 +59,6 @@ class StageAndOpeningComponent extends HTMLElement {
     }
 
     set stageOpeningConfig(val) {
-        console.log('receiving: ', val)
         this._setupStageOpening(val);
 
     }

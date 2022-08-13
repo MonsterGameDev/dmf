@@ -123,13 +123,11 @@ class StageOpeningComponent extends HTMLElement {
   };
 
   raiseCurtain() {
-    console.log('raiseCurtain called');
     return this._raiseCurtain();
 
   }
 
   lowerCurtain() {
-    console.log('lowerCurtain called');
     return this._lowerCurtain();
   }
 
