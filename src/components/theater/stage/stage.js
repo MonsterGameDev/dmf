@@ -55,6 +55,7 @@ class StageComponent extends HTMLElement {
   }
   set layers(val) {
     if (!val || !val.layers.length) return;
+    this._layers = val;
     this._calculateLayers(val);
   }
 
@@ -63,7 +64,7 @@ class StageComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this._layers = [];
     this._isOpen = true;
-    this.disableYAxis = false;
+    this.restrictYAxis = false;
     this.computed = null;
     this.targetRect = null;
     this.targetSize = null;
@@ -124,10 +125,8 @@ class StageComponent extends HTMLElement {
       width: (this.targetRect.right - this.targetRect.left),
       height: (this.targetRect.bottom - this.targetRect.top)
     }
-    console.log(this.targetRect)
   }
   handleMouseAndTouchMove(e) {
-    // alert('1: handleMouseAndTuchMove')
     try {
       e.preventDefault();
       if (!this._isOpen) return;
@@ -137,14 +136,24 @@ class StageComponent extends HTMLElement {
         y: (e.targetTouches) ? e.targetTouches[0].clientY - this.targetRect.y : e.offsetY,
       };
 
-      const xpos = (position.x / this.targetSize.width * 100) + '%';
-      const ypos = (position.y / this.targetSize.height * 100) + '%';
-      const perspectiveOffsets = xpos + ' ' + ypos;
+      const minXPos = 6;
+      const maxXPos = 92.5;
+      let xpos = (position.x / this.targetSize.width * 100);
+      if (xpos < minXPos) xpos = minXPos;
+      if (xpos > maxXPos) xpos = maxXPos;
+
+      const minYPos = 36;
+      let maxYPos = 83;
+      if (this._layers?.restrictYAxis) maxYPos = 50;
+
+      let ypos = (position.y / this.targetSize.height * 100);
+      if (ypos < minYPos) ypos = minYPos;
+      if (ypos > maxYPos) ypos = maxYPos;
 
 
+
+      const perspectiveOffsets = xpos + '% ' + ypos + '%';
       this.container.style.perspectiveOrigin = perspectiveOffsets;
-
-
     }
     catch (error) {
       alert('ERROR: ' + error.message)
@@ -173,17 +182,9 @@ class StageComponent extends HTMLElement {
     }
   }
 
-  connectedCallback() {
-    // aint run before WC-Dom has finished loading
-    setTimeout(
-      () => { this.computed = this._getComputedStyle(this.overlay); },
-      0
-    )
-
-  }
 
   _calculateLayers(val) {
-    this.disableYAxis = val.disableYAxis;
+    this.restrictYAxis = val.restrictYAxis;
     const layers = val.layers;
 
     const stage = this.shadowRoot.querySelector('.stage-container');
@@ -193,6 +194,7 @@ class StageComponent extends HTMLElement {
     const backCurtainZpos = -((layers.length * 10) - 5);
     const baseScale = 1.5;
 
+    // Looping through layers
     layers.sort((a, b) => b.zIndex - a.zIndex).forEach((layer, i) => {
       const imgContainer = document.createElement('div');
       imgContainer.classList.add(['parallax']);
@@ -222,7 +224,7 @@ class StageComponent extends HTMLElement {
     const param1 = this.setBoundaries(6, 92.5, xPercent);
     let param2 = this.setBoundaries(36, 83, yPercent);
 
-    if (this.disableYAxis) param2 = 50;
+    if (this.restrictYAxis) param2 = 50;
 
     return param1 + "% " + param2 + "%";
   }

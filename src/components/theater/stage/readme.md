@@ -3,7 +3,7 @@ WC-Property: layers
 
 {
 "id":"pariseropera",
-"disableYAxis":false, // disabel parallax movement vertically
+"restrictYAxis":false, // disabel parallax movement vertically
 "label":"Pariser Opera",
 "layers": [
 {
