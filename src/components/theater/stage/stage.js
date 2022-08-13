@@ -38,6 +38,7 @@ template.innerHTML = `
         }
         .controller {
           position: relative;
+          isolation: isolate;
         }
         .overlay {
           position: absolute;
@@ -45,6 +46,8 @@ template.innerHTML = `
           width: 100%;
           height: 100%;
           z-index: 1;
+
+          pointer-events: all;
       
         }
       

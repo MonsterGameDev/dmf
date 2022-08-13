@@ -37,13 +37,23 @@ stageSelector.addEventListener('change', (e) => {
 
 /** ------------------- STAGE OPENING SECTION -----------------------  **/
 
+// remember ph-stage-opening is first layer
+let isCurtainUp = false;
 const stageOpening = stageService.getStageOpeningById('traditional');
 const phStageOpening = document.querySelector('ph-stage-opening');
-phStageOpening.addEventListener('raiseCurtainAnimationStart', () => console.log('Raise Curtain Started'));
-phStageOpening.addEventListener('lowerCurtainAnimationStart', () => console.log('Lower Curtain Started'));
-phStageOpening.addEventListener('raiseCurtainAnimationEnd', () => console.log('Raise Curtain Ended'));
-phStageOpening.addEventListener('lowerCurtainAnimationEnd', () => console.log('Lower Curtain Ended'));
-phStageOpening.layers = stageOpening
+phStageOpening.layers = stageOpening;
+
+phStageOpening.addEventListener('click', () => {
+  if (!isCurtainUp) {
+    const raiseCurtainFn = phStageOpening.raiseCurtain();
+    raiseCurtainFn.play();
+
+  } else {
+    phStageOpening.lowerCurtain().play();
+  }
+  isCurtainUp = !isCurtainUp;
+});
+
 
 /** ------------------- STAGE AND OPENING SECTION -----------------------  **/
 const stageAndOpening = document.querySelector('ph-stage-and-opening');

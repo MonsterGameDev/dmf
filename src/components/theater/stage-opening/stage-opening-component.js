@@ -12,7 +12,9 @@ stageOpeningComponentTemplate.innerHTML = `
 
   display: flex;
   flex-direction: column;
-  justify-content: baseline;
+  justify-content: flex-end;
+
+  pointer-events: none;
 }
 
 .curtain {
@@ -48,12 +50,12 @@ stageOpeningComponentTemplate.innerHTML = `
 }
 </style>
 <div class="stage-opening">
-<div class="draperies">
-  <img src="" class="left-drapery"/>
-  <img class="right-drapery"/>
-</div>
-<img class="sufit" />
-<img class="curtain" />
+  <div class="draperies">
+    <img src="" class="left-drapery"/>
+    <img class="right-drapery"/>
+  </div>
+  <img class="sufit" />
+  <img class="curtain" />
 </div>
 `;
 
@@ -74,7 +76,6 @@ class StageOpeningComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
 
-    this.isCurtainUp = false;
     this._layers = [];
 
     const templateContent = stageOpeningComponentTemplate.content;
@@ -86,38 +87,50 @@ class StageOpeningComponent extends HTMLElement {
     this.curtain = this.shadowRoot.querySelector('.curtain')
     this.stageOpening = this.shadowRoot.querySelector('.stage-opening');
 
+    // this.addEventListener('click', (e) => {
+    //   const raiseCurtain = this._raiseCurtain();
+    //   const lowerCurtain = this._lowerCurtain();
 
+    //   raiseCurtain.addEventListener('finish', () => {
+    //     const raiseCurtainEvent = new Event('raiseCurtainAnimationEnd');
+    //     this.dispatchEvent(raiseCurtainEvent);
+    //   });
+    //   lowerCurtain.addEventListener('finish', () => {
+    //     const lowerCurtain = new Event('lowerCurtainAnimationEnd')
+    //     this.dispatchEvent(lowerCurtain);
+    //   })
 
+    //   if (this.isCurtainUp) {
+    //     lowerCurtain.play();
 
+    //     const lowerCurtainAnimationStart = new Event('lowerCurtainAnimationStart');
+    //     this.dispatchEvent(lowerCurtainAnimationStart)
+    //   } else {
+    //     raiseCurtain.play();
 
-    this.addEventListener('click', (e) => {
-      const raiseCurtain = this._raiseCurtain();
-      const lowerCurtain = this._lowerCurtain();
+    //     const raiseCurtainAnimationStart = new Event('raiseCurtainAnimationStart')
+    //     this.dispatchEvent(raiseCurtainAnimationStart);
+    //   }
 
-      raiseCurtain.addEventListener('finish', () => {
-        const raiseCurtainEvent = new Event('raiseCurtainAnimationEnd');
-        this.dispatchEvent(raiseCurtainEvent);
-      });
-      lowerCurtain.addEventListener('finish', () => {
-        const lowerCurtain = new Event('lowerCurtainAnimationEnd')
-        this.dispatchEvent(lowerCurtain);
-      })
+    //   this.isCurtainUp = !this.isCurtainUp;
 
-      if (this.isCurtainUp) {
-        lowerCurtain.play();
+    // })
+  }
 
-        const lowerCurtainAnimationStart = new Event('lowerCurtainAnimationStart');
-        this.dispatchEvent(lowerCurtainAnimationStart)
-      } else {
-        raiseCurtain.play();
+  attributeChangedCallback(attr, oldval, newval) {
+    if (newval === oldval) return;
+    if (attr === 'size') this._resizeOpening(newval);
+  };
 
-        const raiseCurtainAnimationStart = new Event('raiseCurtainAnimationStart')
-        this.dispatchEvent(raiseCurtainAnimationStart);
-      }
+  raiseCurtain() {
+    console.log('raiseCurtain called');
+    return this._raiseCurtain();
 
-      this.isCurtainUp = !this.isCurtainUp;
+  }
 
-    })
+  lowerCurtain() {
+    console.log('lowerCurtain called');
+    return this._lowerCurtain();
   }
 
   _setUpImages(val) {
@@ -147,8 +160,6 @@ class StageOpeningComponent extends HTMLElement {
 
   }
 
-
-
   curtainAnimationOptions = {
     delay: 500,
     duration: 2000,
@@ -173,15 +184,6 @@ class StageOpeningComponent extends HTMLElement {
     const curtainFx = new KeyframeEffect(this.curtain, curtainKfs, this.curtainAnimationOptions);
     return new Animation(curtainFx);
   }
-
-
-
-
-
-  attributeChangedCallback(attr, oldval, newval) {
-    if (newval === oldval) return;
-    if (attr === 'size') this._resizeOpening(newval);
-  };
 
   _resizeOpening(size) {
     // ajusting stage-opening
