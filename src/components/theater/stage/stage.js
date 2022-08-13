@@ -151,7 +151,7 @@ class StageComponent extends HTMLElement {
 
     try {
       console.log('handleMouseMove')
-      alert('2 -handleTouchMove');
+      alert('3 -handleTouchMove');
       e.preventDefault();
       if (!this._isOpen) return;
 
@@ -182,7 +182,7 @@ class StageComponent extends HTMLElement {
 
       this.container.style.perspectiveOrigin = perspectiveOffsets;
     } catch (error) {
-      alert('ERROR: ')
+      alert('ERROR: ' + error.message)
     }
 
   }
