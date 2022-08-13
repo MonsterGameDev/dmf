@@ -35,10 +35,11 @@ template.innerHTML = `
           padding: 0;
           margin: 0;
           box-sizing: border-box;
+          isolation: isolate;
         }
         .controller {
           position: relative;
-          isolation: isolate;
+          
         }
         .overlay {
           position: absolute;
