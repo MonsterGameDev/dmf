@@ -150,8 +150,8 @@ class StageComponent extends HTMLElement {
   handleMouseMove(e) {
 
     try {
-      console.log('handleMouseMove')
-      alert('4 -handleTouchMove');
+      // console.log('handleMouseMove')
+      // alert('4 -handleTouchMove');
       e.preventDefault();
       if (!this._isOpen) return;
 
@@ -162,23 +162,23 @@ class StageComponent extends HTMLElement {
         y: (e.targetTouches) ? e.targetTouches[0].clientY - rect.y : e.offsetY,
       };
 
-      console.log('x: ' + position.x + 'y: ' + position.y);
-      alert('x: ' + position.x + 'y: ' + position.y);
+      // console.log('x: ' + position.x + 'y: ' + position.y);
+      // alert('x: ' + position.x + 'y: ' + position.y);
 
       const targetSize = {
         width: (rect.right - rect.left),
         height: (rect.bottom - rect.top)
       }
 
-      console.log('targetSize: ', targetSize);
-      alert('targetSize: ' + targetSize);
+      // console.log('targetSize: ', targetSize);
+      // alert('targetSize: ' + targetSize);
 
       const xpos = (position.x / targetSize.width * 100) + '%';
       const ypos = (position.y / targetSize.height * 100) + '%';
       const perspectiveOffsets = xpos + ' ' + ypos;
 
-      console.log('pOrign: ', perspectiveOffsets);
-      alert('pOrign: ' + perspectiveOffsets);
+      // console.log('pOrign: ', perspectiveOffsets);
+      // alert('pOrign: ' + perspectiveOffsets);
 
       this.container.style.perspectiveOrigin = perspectiveOffsets;
     } catch (error) {
