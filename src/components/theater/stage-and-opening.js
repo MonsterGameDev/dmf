@@ -38,7 +38,7 @@ stageAndOpeningTemplate.innerHTML = `
  </style>
  <div class="stage-and-opening-container">
     <div class="stage-container">
-        <ph-stage blendmode="color-burn" overlay-color="red"></ph-stage>
+        <ph-stage blendmode="color-burn" overlay-color="normal"></ph-stage>
     </div>
     <div class="stage-opening-container" style="pointer-events: all;">
         <ph-stage-opening size="medium"></ph-stage-opening>
@@ -55,7 +55,6 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
-            alert('8 :stage clicked')
             this.stageOpeningContainer.style.pointerEvents = "all"
             this.phStageOpening.lowerCurtain().play();
             this.isCurtainUp = false;
@@ -72,11 +71,8 @@ class StageAndOpeningComponent extends HTMLElement {
         this._stageOpeningConfig = val
         this.phStageOpening.layers = this._stageOpeningConfig;
         this.phStageOpening.addEventListener('click', () => {
-            console.log('8: clicked - isCurtainUp: ' + this.isCurtainUp)
             if (!this.isCurtainUp) {
-                console.log('calling raiseCurtain')
                 this.phStageOpening.raiseCurtain().play();
-                // this.phStageOpening.style.pointerEvents = 'none';
                 this.stageOpeningContainer.style.pointerEvents = "none"
                 this.isCurtainUp = true;
             } else {
