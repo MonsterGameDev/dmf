@@ -28,11 +28,15 @@ stageAndOpeningTemplate.innerHTML = `
     position: absolute;
     width: 100%;
     display: inline-block;
+    pointer-events: none;
+ }
+ ph-stage-opening {
+    pointer-events: all;
  }
  </style>
  <div class="stage-and-opening-container">
     <div class="stage-container">
-        <ph-stage blendmode="color-burn" overlay-color="red"></ph-stage>
+        <ph-stage blendmode="color-burn" overlay-color="0,0,0,.8"></ph-stage>
     </div>
     <div class="stage-opening-container">
         <ph-stage-opening size="medium"></ph-stage-opening>
@@ -47,14 +51,36 @@ class StageAndOpeningComponent extends HTMLElement {
 
         const phStage = this.shadowRoot.querySelector('ph-stage');
         phStage.layers = this._stageConfig;
+
+        phStage.addEventListener('stageclick', () => {
+            this.phStageOpening.style.pointerEvents = 'all';
+            this.phStageOpening.lowerCurtain().play();
+        })
     }
 
     set stageOpeningConfig(val) {
+        console.log('receiving: ', val)
+        this._setupStageOpening(val);
+
+    }
+
+    _setupStageOpening(val) {
+        let isCurtainUp = false;
         this._stageOpeningConfig = val
+        this.phStageOpening.layers = this._stageOpeningConfig;
+        this.phStageOpening.addEventListener('click', () => {
 
-        const phStageOpening = this.shadowRoot.querySelector('ph-stage-opening');
-        phStageOpening.layers = this._stageOpeningConfig;
-
+            if (!isCurtainUp) {
+                this.phStageOpening.raiseCurtain().play();
+                this.phStageOpening.style.pointerEvents = 'none';
+                isCurtainUp = true;
+            } else {
+                this.phStageOpening.lowerCurtain().play();
+                this.phStageOpening.style.pointerEvents = "all"
+                isCurtainUp = false;
+            }
+            console.log('stageOpeningClick');
+        });
     }
 
 
@@ -62,11 +88,19 @@ class StageAndOpeningComponent extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
 
+        this._stageConfig = {};
+        this._stageOpeningConfig = {};
+
         const templateContent = stageAndOpeningTemplate.content;
         this.shadowRoot.appendChild(templateContent.cloneNode(true));
 
-        this._stageConfig = {};
-        this._stageOpeningConfig = {};
+        this.phStageOpening = this.shadowRoot.querySelector('ph-stage-opening');
+        this.phStage = this.shadowRoot.querySelector('ph-stage');
+
+
+
+
+
 
 
     }
