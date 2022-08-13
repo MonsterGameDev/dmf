@@ -128,27 +128,25 @@ class StageComponent extends HTMLElement {
     console.log(this.targetRect)
   }
   handleMouseAndTouchMove(e) {
-    // try {
-    e.preventDefault();
-    if (!this._isOpen) return;
+    try {
+      e.preventDefault();
+      if (!this._isOpen) return;
 
-    const position = {
-      x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
-      y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
-    };
+      const position = {
+        x: (e.targetTouches) ? e.targetTouches[0].clientX - targetRect.x : e.offsetX,
+        y: (e.targetTouches) ? e.targetTouches[0].clientY - targetRect.y : e.offsetY,
+      };
 
-
-
-    const xpos = (position.x / this.targetSize.width * 100) + '%';
-    const ypos = (position.y / this.targetSize.height * 100) + '%';
-    const perspectiveOffsets = xpos + ' ' + ypos;
+      const xpos = (position.x / this.targetSize.width * 100) + '%';
+      const ypos = (position.y / this.targetSize.height * 100) + '%';
+      const perspectiveOffsets = xpos + ' ' + ypos;
 
 
-    this.container.style.perspectiveOrigin = perspectiveOffsets;
-    // }
-    // catch (error) {
-    //   alert('ERROR: ' + error.message)
-    // }
+      this.container.style.perspectiveOrigin = perspectiveOffsets;
+    }
+    catch (error) {
+      alert('ERROR: ' + error.message)
+    }
 
   }
 
