@@ -53,7 +53,7 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
-            alert('stage clicked')
+            alert('2:stage clicked')
             this.phStageOpening.style.pointerEvents = 'all';
             this.phStageOpening.lowerCurtain().play();
             this.isCurtainUp = false;
@@ -70,7 +70,7 @@ class StageAndOpeningComponent extends HTMLElement {
         this._stageOpeningConfig = val
         this.phStageOpening.layers = this._stageOpeningConfig;
         this.phStageOpening.addEventListener('click', () => {
-            console.log('1: clicked - isCurtainUp: ' + this.isCurtainUp)
+            console.log('2: clicked - isCurtainUp: ' + this.isCurtainUp)
             if (!this.isCurtainUp) {
                 console.log('calling raiseCurtain')
                 this.phStageOpening.raiseCurtain().play();
