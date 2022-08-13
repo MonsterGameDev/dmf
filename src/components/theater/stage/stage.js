@@ -163,7 +163,10 @@ class StageComponent extends HTMLElement {
       y: (e.targetTouches) ? e.targetTouches[0].pageY : e.offsetY
     };
 
+    if (parent.offsetParent) { alert('offsetLeft: ' + parent.offsetLeft + '\r\n offsetTop; ' + parent.offsetTop) }
+
     while (parent.offsetParent) {
+
       position.x -= parent.offsetLeft - parent.scrollLeft;
       position.y -= parent.offsetTop - parent.scrollTop;
 
