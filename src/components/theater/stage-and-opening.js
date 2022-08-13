@@ -22,23 +22,27 @@ stageAndOpeningTemplate.innerHTML = `
  .stage-container {
     width: 100%;
     display: inline-block;
+    position: relative;
+    z-index: 0;
  }
 
  .stage-opening-container {
-    position: absolute;
+    
     width: 100%;
     display: inline-block;
     pointer-events: none;
- }
- ph-stage-opening {
-    position: relative;
+   
+    position: absolute;
     z-index: 10;
+ }
+
+ ph-stage-opening {
+    
     pointer-events: all;
  }
 
  ph-stage {
-    position: relative;
-    z-index: 0;
+    
  }
 
  
@@ -62,7 +66,7 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
-            alert('4 :stage clicked')
+            alert('5 :stage clicked')
             this.phStageOpening.style.pointerEvents = 'all';
             this.phStageOpening.lowerCurtain().play();
             this.isCurtainUp = false;
