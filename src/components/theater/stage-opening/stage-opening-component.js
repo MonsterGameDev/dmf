@@ -61,7 +61,6 @@ class StageOpeningComponent extends HTMLElement {
   get layers() {
     return this._layers;
   }
-
   set layers(val) {
     this._layers = val;
     this._setUpImages(val)
@@ -73,11 +72,10 @@ class StageOpeningComponent extends HTMLElement {
 
   constructor() {
     super();
+    this.attachShadow({ mode: 'open' });
 
     this.isCurtainUp = false;
     this._layers = [];
-
-    this.attachShadow({ mode: 'open' });
 
     const templateContent = stageOpeningComponentTemplate.content;
     this.shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -88,19 +86,38 @@ class StageOpeningComponent extends HTMLElement {
     this.curtain = this.shadowRoot.querySelector('.curtain')
     this.stageOpening = this.shadowRoot.querySelector('.stage-opening');
 
+
+
+
+
     this.addEventListener('click', (e) => {
-      this.isCurtainUp
-        ? this._operateCurtain().reverse()
-        : this._operateCurtain().play();
+      const raiseCurtain = this._raiseCurtain();
+      const lowerCurtain = this._lowerCurtain();
+
+      raiseCurtain.addEventListener('finish', () => {
+        const raiseCurtainEvent = new Event('raiseCurtainAnimationEnd');
+        this.dispatchEvent(raiseCurtainEvent);
+      });
+      lowerCurtain.addEventListener('finish', () => {
+        const lowerCurtain = new Event('lowerCurtainAnimationEnd')
+        this.dispatchEvent(lowerCurtain);
+      })
+
+      if (this.isCurtainUp) {
+        lowerCurtain.play();
+
+        const lowerCurtainAnimationStart = new Event('lowerCurtainAnimationStart');
+        this.dispatchEvent(lowerCurtainAnimationStart)
+      } else {
+        raiseCurtain.play();
+
+        const raiseCurtainAnimationStart = new Event('raiseCurtainAnimationStart')
+        this.dispatchEvent(raiseCurtainAnimationStart);
+      }
 
       this.isCurtainUp = !this.isCurtainUp;
 
-      //dispatch to parent
-      const curtainStateChangeEvent = new CustomEvent('curtainStateChange', { detail: this.isCurtainUp })
-      e.target.dispatchEvent(curtainStateChangeEvent)
-
     })
-
   }
 
   _setUpImages(val) {
@@ -130,19 +147,34 @@ class StageOpeningComponent extends HTMLElement {
 
   }
 
-  _operateCurtain() {
+
+
+  curtainAnimationOptions = {
+    delay: 500,
+    duration: 2000,
+    easing: "ease-in-out",
+    fill: "both",
+  };
+
+  _raiseCurtain() {
     const curtainKfs = [
       { transform: "translateY(0)" },
       { transform: "translateY(-100%)" },
     ];
-    const curtainFx = new KeyframeEffect(this.curtain, curtainKfs, {
-      delay: 500,
-      duration: 2000,
-      easing: "ease-in-out",
-      fill: "both",
-    });
+    const curtainFx = new KeyframeEffect(this.curtain, curtainKfs, this.curtainAnimationOptions);
     return new Animation(curtainFx);
   }
+
+  _lowerCurtain() {
+    const curtainKfs = [
+      { transform: "translateY(-100%)" },
+      { transform: "translateY(0)" },
+    ];
+    const curtainFx = new KeyframeEffect(this.curtain, curtainKfs, this.curtainAnimationOptions);
+    return new Animation(curtainFx);
+  }
+
+
 
 
 
