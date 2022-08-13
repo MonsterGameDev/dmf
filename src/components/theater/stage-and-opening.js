@@ -51,7 +51,7 @@ stageAndOpeningTemplate.innerHTML = `
     <div class="stage-container">
         <ph-stage blendmode="color-burn" overlay-color="red"></ph-stage>
     </div>
-    <div class="stage-opening-container">
+    <div class="stage-opening-container" style="pointer-events: all">
         <ph-stage-opening size="medium" style="pointer-events: all"></ph-stage-opening>
     </div>
  </div>
@@ -66,7 +66,7 @@ class StageAndOpeningComponent extends HTMLElement {
         phStage.layers = this._stageConfig;
 
         phStage.addEventListener('stageclick', () => {
-            alert('5 :stage clicked')
+            alert('6 :stage clicked')
             this.phStageOpening.style.pointerEvents = 'all';
             this.phStageOpening.lowerCurtain().play();
             this.isCurtainUp = false;
