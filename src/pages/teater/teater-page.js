@@ -3,6 +3,7 @@ import "./../../components/theater/stage/stage.js";
 import "./../../components/form-components/radio-button-group-component.js"
 import "./../../components/theater/stage-opening/stage-opening-component.js";
 import "./../../components/theater/stage-and-opening.js";
+import Proscenium from './../../img/prosceniums/C-047-proscenium-full.webp';
 
 import StageRetrievalService from "../../shared/theater/stage-retrieval.service";
 
@@ -59,3 +60,11 @@ phStageOpening.addEventListener('click', () => {
 const stageAndOpening = document.querySelector('ph-stage-and-opening');
 stageAndOpening.stageConfig = stageService.getStageById('pariseropera')
 stageAndOpening.stageOpeningConfig = stageService.getStageOpeningById('traditional');
+
+
+/** ------------------- THE FULL MONTY -----------------------  **/
+const procscnium = document.getElementById('proscenium');
+proscenium.src = Proscenium;
+const stageAndOpeningBehindProscenium = document.querySelector('ph-stage-and-opening#behind-proscenium');
+stageAndOpeningBehindProscenium.stageConfig = stageService.getStageById('gammelgade01')
+stageAndOpeningBehindProscenium.stageOpeningConfig = stageService.getStageOpeningById('traditional');

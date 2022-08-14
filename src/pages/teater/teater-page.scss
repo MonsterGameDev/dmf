@@ -33,7 +33,24 @@
     display: inline-block;
     width: 60%;
   }
-
 }
 
+.proscenium-container {
+  max-width: 60vw;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  img {
+    width: 100%;
+  }
 
+  .stage-opening-container {
+    position: absolute;
+    top: 26.5vw;
+    width: 69%;
+    display: inline-block;
+    transform: translateZ(-0.2px);
+  }
+}
