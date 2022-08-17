@@ -30,3 +30,11 @@ proscenium.src = Proscenium;
 const stageAndOpeningBehindProscenium = document.querySelector('ph-stage-and-opening#behind-proscenium');
 stageAndOpeningBehindProscenium.stageConfig = stageService.getStageById('pariseropera')
 stageAndOpeningBehindProscenium.stageOpeningConfig = stageService.getStageOpeningById('traditional');
+
+
+const stageSelector = document.querySelector('ph-radio-button-group');
+stageSelector.groupConfig = groupConfig;
+phStage.config = stageService.getStageById(groupConfig.selectedId);
+stageSelector.addEventListener('change', (e) => {
+  phStage.config = stageService.getStageById(e.detail);
+})

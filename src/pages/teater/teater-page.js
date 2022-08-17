@@ -34,7 +34,6 @@ stageSelector.groupConfig = groupConfig;
 phStage.config = stageService.getStageById(groupConfig.selectedId);
 stageSelector.addEventListener('change', (e) => {
   phStage.config = stageService.getStageById(e.detail);
-
 })
 
 /** ------------------- STAGE OPENING SECTION -----------------------  **/
