@@ -23,9 +23,10 @@ stageService.getAllStages().forEach(conf => {
 const groupConfig = {
   groupHeading: 'Vælg en scene',
   fieldName: 'stageSelector',
-  selectedId: 'gammelgade01',
+  selectedId: 'gammelgade',
   radiobuttons: _availableStages
 }
+
 const phStage = document.querySelector("ph-stage");
 phStage.addEventListener('stageclick', () => { console.log('stage was clicked') })
 const stageSelector = document.querySelector('ph-radio-button-group');
@@ -66,5 +67,5 @@ stageAndOpening.stageOpeningConfig = stageService.getStageOpeningById('tradition
 const procscnium = document.getElementById('proscenium');
 proscenium.src = Proscenium;
 const stageAndOpeningBehindProscenium = document.querySelector('ph-stage-and-opening#behind-proscenium');
-stageAndOpeningBehindProscenium.stageConfig = stageService.getStageById('gammelgade01')
+stageAndOpeningBehindProscenium.stageConfig = stageService.getStageById('pariseropera')
 stageAndOpeningBehindProscenium.stageOpeningConfig = stageService.getStageOpeningById('traditional');
