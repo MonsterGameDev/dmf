@@ -142,7 +142,7 @@ class StageComponent extends HTMLElement {
       if (xpos < minXPos) xpos = minXPos;
       if (xpos > maxXPos) xpos = maxXPos;
 
-      const minYPos = 36;
+      const minYPos = 50;  // prevent stage-floor beeing seen
       let maxYPos = 83;
       if (this._config?.restrictYAxis) maxYPos = 50;
 
@@ -213,20 +213,20 @@ class StageComponent extends HTMLElement {
     })
   }
 
-  _computedValues(element, mouseX, mouseY) {
-    const computed = this._getComputedStyle(element);
-    const xPos = parseInt(mouseX);
-    const yPos = parseInt(mouseY);
-    const xPercent = (xPos / computed.width) * 100;
-    const yPercent = (yPos / computed.height) * 100;
+  // _computedValues(element, mouseX, mouseY) {
+  //   const computed = this._getComputedStyle(element);
+  //   const xPos = parseInt(mouseX);
+  //   const yPos = parseInt(mouseY);
+  //   const xPercent = (xPos / computed.width) * 100;
+  //   const yPercent = (yPos / computed.height) * 100;
 
-    const param1 = this.setBoundaries(6, 92.5, xPercent);
-    let param2 = this.setBoundaries(36, 83, yPercent);
+  //   const param1 = this.setBoundaries(6, 92.5, xPercent);
+  //   let param2 = this.setBoundaries(36, 83, yPercent);
 
-    if (this.restrictYAxis) param2 = 50;
+  //   if (this.restrictYAxis) param2 = 50;
 
-    return param1 + "% " + param2 + "%";
-  }
+  //   return param1 + "% " + param2 + "%";
+  // }
 
   setBoundaries(min, max, percent) {
     if (percent >= min && percent < max) return percent;
@@ -234,12 +234,12 @@ class StageComponent extends HTMLElement {
     if (percent > max) return max;
   }
 
-  _getComputedStyle(element) {
-    return {
-      width: parseInt(window.getComputedStyle(element).width),
-      height: parseInt(window.getComputedStyle(element).height),
-    };
-  }
+  // _getComputedStyle(element) {
+  //   return {
+  //     width: parseInt(window.getComputedStyle(element).width),
+  //     height: parseInt(window.getComputedStyle(element).height),
+  //   };
+  // }
 }
 
 window.customElements.define('ph-stage', StageComponent);

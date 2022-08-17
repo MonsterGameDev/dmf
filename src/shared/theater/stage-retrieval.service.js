@@ -1,4 +1,4 @@
-import STAGES from './stages.js';
+import { STAGES } from './../../img/stages/index.js';  //'./stages.js';
 import STAGEOPENINGS from './stage-openings.js';
 
 class StageRetrievalService {
