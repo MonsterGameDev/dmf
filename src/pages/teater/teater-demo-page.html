@@ -19,6 +19,8 @@
             <div class="stage-opening-container">
               <ph-stage-and-opening
                 id="behind-proscenium"
+                overlay-color=""
+                size=""
               ></ph-stage-and-opening>
             </div>
           </div>
@@ -30,9 +32,16 @@
       <section class="stage-section">
         <h2 class="stage-section__header">Kontrol Panel</h2>
         <div class="choose-stage-panel">
-          <ph-radio-button-group></ph-radio-button-group>
+          <ph-radio-button-group  class="stage-selector"></ph-radio-button-group>
         </div>
-        <div class="stage-section__container"></div>
+
+        <div class="choose-stage-panel">
+          <ph-radio-button-group class="size-selector"></ph-radio-button-group>
+        </div>
+
+        <div class="choose-stage-panel">
+          <ph-radio-button-group class="lights-selector"></ph-radio-button-group>
+        </div>
       </section>
     </div>
   </body>
