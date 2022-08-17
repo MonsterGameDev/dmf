@@ -24,3 +24,9 @@ const groupConfig = {
     selectedId: 'gammelgade',
     radiobuttons: _availableStages
 }
+
+const procscnium = document.getElementById('proscenium');
+proscenium.src = Proscenium;
+const stageAndOpeningBehindProscenium = document.querySelector('ph-stage-and-opening#behind-proscenium');
+stageAndOpeningBehindProscenium.stageConfig = stageService.getStageById('pariseropera')
+stageAndOpeningBehindProscenium.stageOpeningConfig = stageService.getStageOpeningById('traditional');
