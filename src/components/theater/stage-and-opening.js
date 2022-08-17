@@ -7,7 +7,9 @@ import './stage-opening/stage-opening-component.js'
 const stageAndOpeningTemplate = document.createElement('template');
 stageAndOpeningTemplate.innerHTML = `
  <style>
- :host * {
+ *,
+ *::after,
+ *:before {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -51,6 +53,9 @@ stageAndOpeningTemplate.innerHTML = `
  */
 
 class StageAndOpeningComponent extends HTMLElement {
+    static get observedAttributes() {
+        return ['size', 'overlay-color'];
+    }
 
     set stageConfig(val) {
         this._stageConfig = val;
@@ -86,7 +91,6 @@ class StageAndOpeningComponent extends HTMLElement {
         });
     }
 
-
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -104,6 +108,18 @@ class StageAndOpeningComponent extends HTMLElement {
         this.stageOpeningContainer = this.shadowRoot.querySelector('.stage-opening-container');
 
     }
+
+    attributeChangedCallback(attr, oldval, newval) {
+        
+        if (oldval === newval) return;
+
+        if (attr === 'size') this.phStageOpening.setAttribute('size', newval);
+        if (attr === 'overlay-color') this.phStage.setAttribute('overlay-color', newval);
+
+
+    }
+
+
 
 }
 
