@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         'home': path.resolve(__dirname, 'src/pages/home/home-page.ts'),
-        'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js')
+        'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
+        'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js')
     },
     output: {
         filename: '[name].js',
@@ -66,6 +67,13 @@ module.exports = {
             template: 'src/pages/teater/teater-page.html',
             chunks: ['teater'],
             minify: false,
+        }),
+        new HtmlWebpackPlugin({
+            title: '3D Teater Samlet Demo',
+            filename: 'teater-demo.html',
+            template: 'src/pages/teater/teater-demo-page.html',
+            chunks: ['teater-demo'],
+            minify: true,
         }),
     ]
 

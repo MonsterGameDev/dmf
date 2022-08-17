@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');  // creates  on
 module.exports = {
     entry: {
         'home': path.resolve(__dirname, 'src/pages/home/home-page.ts'),
-        'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js')
+        'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
+        'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js')
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -63,6 +64,13 @@ module.exports = {
             filename: 'teater.html',
             template: 'src/pages/teater/teater-page.html',
             chunks: ['teater'],
+            minify: true,
+        }),
+        new HtmlWebpackPlugin({
+            title: '3D Teater Samlet Demo',
+            filename: 'teater-demo.html',
+            template: 'src/pages/teater/teater-demo-page.html',
+            chunks: ['teater-demo'],
             minify: true,
         }),
     ]
