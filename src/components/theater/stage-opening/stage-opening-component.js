@@ -202,7 +202,7 @@ class StageOpeningComponent extends HTMLElement {
         this.sufit.style.transform = `translateY(-60%)`;
         break;
       default:
-        console.warning("Resize imput skal være small, medium eller large, defaulting to medium");
+        console.warn("Resize imput skal være small, medium eller large, defaulting to medium");
         this.leftDrapery.style.transform = "translateX(-45%)";
         this.rightDrapery.style.transform = `translateX(45%)`;
         this.sufit.style.transform = `translateY(-40%)`;
