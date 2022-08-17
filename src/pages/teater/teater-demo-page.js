@@ -35,11 +35,34 @@ const _availableSizes = [
         value: 'large',
         label: 'Stor'
     },
+];
+
+/**
+ reddish #ff9e9e99
+ bynight #7b84fc99
+ warm: #fcbe7b99
+ */
+const _availableOverlayColors = [
+    {
+        id: 'small',
+        value: '#ff9e9e99',
+        label: 'Rødlig'
+    },
+    {
+        id: 'medium',
+        value: '#7b84fc99',
+        label: 'Nat'
+    },
+    {
+        id: 'large',
+        value: '#fcbe7b99',
+        label: 'Sommerdag'
+    },
 ]
 const groupConfig = {
     groupHeading: 'Vælg en scene',
     fieldName: 'stageSelector',
-    selectedId: 'gammelgade',
+    selectedId: 'pariseropera',
     radiobuttons: _availableStages
 }
 
@@ -48,6 +71,13 @@ const groupConfig_StageSize = {
     fieldName: 'sizeSelector',
     selectedId: 'medium',
     radiobuttons: _availableSizes
+}
+
+const groupConfig_OverlayColor = {
+    groupHeading: 'Vælg Lys',
+    fieldName: 'overlayColorSelector',
+    selectedId: '',
+    radiobuttons: _availableOverlayColors
 }
 
 const procscnium = document.getElementById('proscenium');
@@ -68,4 +98,11 @@ sizeSelector.groupConfig = groupConfig_StageSize;
 sizeSelector.addEventListener('change', (e) => {
     console.log('request size change', e);
     stageAndOpeningBehindProscenium.setAttribute('size', e.detail);
+});
+
+const overlayColorSelector = document.querySelector('ph-radio-button-group.overlay-color-selector');
+overlayColorSelector.groupConfig = groupConfig_OverlayColor;
+overlayColorSelector.addEventListener('change', (e) => {
+    console.log('overlay-color change requested', e);
+    stageAndOpeningBehindProscenium.setAttribute('overlay-color', e.detail);
 });
