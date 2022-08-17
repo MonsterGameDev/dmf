@@ -21,16 +21,21 @@
 const radioButtonGroupTemplate = document.createElement('template');
 radioButtonGroupTemplate.innerHTML = `
     <style>
-        
         :host {
+            borde: 1px solid black;    
             padding: 0;
             margin: 0;
-            box-sizing: border-box;
-
             width: 100%;
         }
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        fieldset.radio-group-container {
+        fieldset.radio-group-container {                       
             width: 100%;
             border: 0;
         }
@@ -47,12 +52,15 @@ radioButtonGroupTemplate.innerHTML = `
         .radio-group-fields {
             width: 100%;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;;
             flex-flow: row wrap;
         }
 
         .radio-field-container {
-            padding-right: 2vw;
+            padding: 1rem;
+            min-width: 33%;
+
+           
         }
 
         .radio-button-input {
@@ -67,10 +75,12 @@ radioButtonGroupTemplate.innerHTML = `
             color: var(--radio-button-color);
             transition: all .5s;  /*remembrer also to change .radio-button-grafix transition*/
             margin-right: 2vw;
+            width: 100%;
+            padding: 2vw;
 
         }
         .radio-button-label:hover {
-            transform: scale(1.3);
+            transform: scale(1.07);
             color: var(--radio-button-active-color, red); 
         }
 
@@ -123,7 +133,7 @@ radioButtonGroupTemplate.innerHTML = `
 
         .radio-button-input:checked ~ .radio-button-label {
             color: var(--radio-button-active-color, red);
-            transform: scale(1.3);
+            transform: scale(1.07);
         }
 
         .radio-button-input:checked ~ .radio-button-label .radio-button-grafix-container .radio-button-grafix,
@@ -183,7 +193,7 @@ class RadioButtonGroupComponent extends HTMLElement {
         val.radiobuttons.forEach(rb => {
             fieldsContainer.innerHTML += `
                 <div class="radio-field-container"$>
-                    <input type="radio" id="${rb.id}" class="radio-button-input" name="${val.fieldName}" value="${rb.value}">
+                 <input type="radio" id="${rb.id}" class="radio-button-input" name="${val.fieldName}" value="${rb.value}">
                     <label class="radio-button-label" for="${rb.id}">
                         <span class="radio-button-grafix-container">
                             <span class="radio-button-grafix"></span>
