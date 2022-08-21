@@ -85,7 +85,7 @@ class ListComponent extends HTMLElement {
         title: 'Title here',
         subtitle: 'Subtitle here',
         thumb: null,
-        
+
     }
 
     constructor() {

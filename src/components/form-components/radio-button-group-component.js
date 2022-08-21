@@ -47,12 +47,12 @@ radioButtonGroupTemplate.innerHTML = `
         .radio-group-fields {
             width: 100%;
             display: flex;
-            justify-content: flex-start;;
+            flex-wrap: wrap;
+            justify-content: flex-start;
         }
 
         .radio-field-container {
             padding: 1rem;
-            min-width: 33%;
         }
 
         .radio-button-input {
@@ -202,7 +202,7 @@ class RadioButtonGroupComponent extends HTMLElement {
 
         val.radiobuttons.forEach(rb => {
             fieldsContainer.innerHTML += `
-                <div class="radio-field-container"$>
+                <div class="radio-field-container">
                  <input type="radio" id="${rb.id}" class="radio-button-input" name="${val.fieldName}" value="${rb.value}">
                     <label class="radio-button-label" for="${rb.id}">
                         <span class="radio-button-grafix-container">
