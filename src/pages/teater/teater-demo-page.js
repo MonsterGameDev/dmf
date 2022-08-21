@@ -82,18 +82,14 @@ stageAndOpeningBehindProscenium.stageOpeningConfig = stageRetrievalService.getSt
 
 
 const stageSelector = document.querySelector('ph-list.stage-selector');
-console.log('stageSelector', stageSelector);
 stageSelector.config = listConfig;
-console.log('listConfig', listConfig)
 stageSelector.addEventListener('item-click', (e) => {
-    console.log('item was clicked: ', e.detail);
     stageAndOpeningBehindProscenium.stageConfig = stageRetrievalService.getStageById(e.detail);
 });
 
 const sizeSelector = document.querySelector('ph-radio-button-group.size-selector');
 sizeSelector.config = groupConfig_StageSize;
 sizeSelector.addEventListener('change', (e) => {
-    console.log('request size change', e);
     stageAndOpeningBehindProscenium.setAttribute('size', e.detail);
 });
 

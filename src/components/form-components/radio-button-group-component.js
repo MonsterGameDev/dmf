@@ -167,7 +167,6 @@ class RadioButtonGroupComponent extends HTMLElement {
         this._groupConfig = null;
 
         this.flexDirection = 'row';
-        console.log('Constr: ', this.flexDirection)
 
     }
 
@@ -176,7 +175,6 @@ class RadioButtonGroupComponent extends HTMLElement {
 
         if (attr === 'flex-direction') {
             newval === 'vertical' ? this.flexDirection = 'column' : this.flexDirection = 'row';
-            console.log('attr: ', this.flexDirection)
         }
     }
 
@@ -195,8 +193,6 @@ class RadioButtonGroupComponent extends HTMLElement {
 
         const fieldsContainer = document.createElement('div');
         fieldsContainer.classList.add('radio-group-fields');
-
-        console.log('lagest: ', this.flexDirection);
 
         fieldsContainer.style.flexDirection = this.flexDirection;
 
