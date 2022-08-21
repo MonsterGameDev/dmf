@@ -19,6 +19,15 @@ body {
 article {
   font-size: 2rem;
   margin-bottom: 3rem;
+
+  h2 {
+    font-size: 3rem;
+    color: #dbc6c6;
+    margin-bottom: 1rem;
+  }
+  .content-text {
+    color: #dbc6c6;
+  }
 }
 
 .page {
