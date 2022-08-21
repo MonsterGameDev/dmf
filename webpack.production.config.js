@@ -6,7 +6,8 @@ module.exports = {
     entry: {
         'home': path.resolve(__dirname, 'src/pages/home/home-page.ts'),
         'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
-        'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js')
+        'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js'),
+        'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js')
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -53,7 +54,7 @@ module.exports = {
             filename: '[name].[contenthash].css'
         }),
         new HtmlWebpackPlugin({
-            title: 'Home - Dansk Modelteater Forening',
+            title: 'Home ComponentDemos',
             filename: 'index.html',
             template: 'src/pages/home/home-page.html',
             chunks: ['home'],
@@ -71,6 +72,13 @@ module.exports = {
             filename: 'teater-demo.html',
             template: 'src/pages/teater/teater-demo-page.html',
             chunks: ['teater-demo'],
+            minify: true,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Form Controls',
+            filename: 'form-controls.html',
+            template: 'src/pages/common/form-controls.html',
+            chunks: ['boring-controls'],
             minify: true,
         }),
     ]
