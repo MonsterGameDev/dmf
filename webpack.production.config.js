@@ -7,7 +7,8 @@ module.exports = {
         'home': path.resolve(__dirname, 'src/pages/home/home-page.ts'),
         'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
         'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js'),
-        'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js')
+        'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
+        'parallax': path.resolve(__dirname, 'src/pages/parallax/page-sections.js')
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -78,7 +79,14 @@ module.exports = {
             title: 'Form Controls',
             filename: 'form-controls.html',
             template: 'src/pages/common/form-controls.html',
-            chunks: ['boring-controls'],
+            chunks: ['form-controls'],
+            minify: true,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Parallax  Sections',
+            filename: 'page-sections.html',
+            template: 'src/pages/parallax/page-sections.html',
+            chunks: ['parallax'],
             minify: true,
         }),
     ]
