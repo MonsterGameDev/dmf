@@ -122,7 +122,7 @@ listItemTemplate.innerHTML = `
 
 class ListItemComponent extends HTMLElement {
     static get observedAttributes() {
-        return ['image-position', 'checked'];
+        return ['align-image', 'checked'];
     }
 
     get config() {
@@ -188,10 +188,15 @@ class ListItemComponent extends HTMLElement {
 
 
     attributeChangedCallback(attr, oldval, newval) {
+        console.log(this.itemElem)
         if (oldval === newval) return;
 
-        if (attr === 'image-position') {
-
+        if (attr === 'align-image') {
+            if (newval === 'left') {
+                this.itemElem.style.flexDirection = 'row-reverse';
+            } else if (newval === 'right') {
+                this.itemElem.style.flexDirection = 'row';
+            }
         }
         if (attr === 'checked') {
             if (this.hasAttribute('checked')) {

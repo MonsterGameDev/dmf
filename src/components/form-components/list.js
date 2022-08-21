@@ -68,7 +68,7 @@ listTemplate.innerHTML = `
 
 class ListComponent extends HTMLElement {
     static get observedAttributes() {
-        return [];
+        return ['align-image'];
     }
 
     get config() {
@@ -96,15 +96,16 @@ class ListComponent extends HTMLElement {
         this.shadowRoot.appendChild(templateContent.cloneNode(true));
         //******************************************************** */
         this._config = this.configInit;
+        this._imageAlignment = 'right';
     }
 
     render(val) {
         val.forEach(item => {
-
             const listItemContainer = document.createElement('div');
             listItemContainer.classList.add('list-item-container');
 
             const listItem = document.createElement('ph-list-item');
+            listItem.setAttribute('align-image', this._imageAlignment);
             listItem.config = item;
 
             listItem.addEventListener('item-click', e => this._selectListItem(e))
@@ -121,6 +122,12 @@ class ListComponent extends HTMLElement {
 
     attributeChangedCallback(attr, oldval, newval) {
         if (oldval === newval) return;
+
+        if (attr === 'align-image') {
+            if (newval === 'right' || newval === 'left') {
+                this._imageAlignment = newval
+            }
+        }
     }
 
     _selectListItem(e) {
