@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Markedsplads',
     thumb: Thumbnail_MarkedsPlads,
+    description: 'D-285-86',
     layers: [
         {
             imgSrc: Bagtaeppe_MarkedsPlads,

@@ -10,6 +10,7 @@ export default {
     restrictYAxis: false,
     label: 'Toy Shop',
     thumb: Thumbnail_ToyShop,
+    description: 'D-656-57-58',
     layers: [
         {
             imgSrc: Bagtaeppe_B_ToyShop,

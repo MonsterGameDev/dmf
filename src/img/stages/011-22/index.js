@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Gammel Gade',
     thumb: Thumbnail_GammelGade,
+    description: 'D-011-12',
     layers: [
         {
             imgSrc: Bagtaeppe_GammelGade,

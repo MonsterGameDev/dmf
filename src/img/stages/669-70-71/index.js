@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Borg By',
     thumb: Thumbnail_BorgBy,
+    description: 'D-669-70-71',
     layers: [
         {
             imgSrc: Bagtaeppe_BorgBy,

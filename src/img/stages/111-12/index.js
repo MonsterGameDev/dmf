@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Urskov',
     thumb: Thumbnail_Urskov,
+    description: 'D-111-12',
     layers: [
         {
             imgSrc: Bagtaeppe_Urskov,

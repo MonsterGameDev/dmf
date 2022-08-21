@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Tropisk Strand',
     thumb: Thumbnail_TropiskStrand,
+    description: 'D-559-60',
     layers: [
         {
             imgSrc: Bagtaeppe_TropiskStrand,

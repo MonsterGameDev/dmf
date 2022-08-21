@@ -10,6 +10,7 @@ export default {
     restrictYAxis: true,
     label: 'Bjerglandskab',
     thumb: Thumbnail_BjergLandskab,
+    description: 'D-295-96',
     layers: [
         {
             imgSrc: Bagtaeppe_BjergLandskab,

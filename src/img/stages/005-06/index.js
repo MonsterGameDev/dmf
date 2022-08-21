@@ -9,6 +9,7 @@ export default  {
     restrictYAxis: true,
     label: 'Ishav',
     thumb: Thumbnail_IsHav,
+    description:  'D-005, 06',
     layers: [
         {
             imgSrc: Bagtaeppe_IsHav,

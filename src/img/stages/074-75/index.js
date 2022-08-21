@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Pragthave',
     thumb: Thumbnail_HutteInWald,
+    description: 'D-074-75',
     layers: [
         {
             imgSrc: Bagtaeppe_PragtHave,

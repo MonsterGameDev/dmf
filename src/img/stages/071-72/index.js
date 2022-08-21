@@ -9,6 +9,7 @@ export default  {
     restrictYAxis: true,
     label: 'Riddersal',
     thumb: Thumbnail_RidderSal,
+    description: 'D071-72',
     layers: [
         {
             imgSrc: Bagtaeppe_RidderSal,

@@ -10,6 +10,7 @@ export default {
     restrictYAxis: false,
     label: 'Faust Zimmer',
     thumb: Thumbnail_FaustZimmer,
+    description: 'D-567-68',
     layers: [
         {
             imgSrc: Bagtaeppe_A_FaustZimmer,

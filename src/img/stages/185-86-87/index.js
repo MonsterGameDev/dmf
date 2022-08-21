@@ -9,6 +9,7 @@ export default {
     restrictYAxis: false,
     label: 'Festsal',
     thumb: Thumbnail_FestSal,
+    description: 'D-185-86-87',
     layers: [
         {
             imgSrc: Bagtaeppe_FestSal,

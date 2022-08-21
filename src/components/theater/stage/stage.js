@@ -213,33 +213,12 @@ class StageComponent extends HTMLElement {
     })
   }
 
-  // _computedValues(element, mouseX, mouseY) {
-  //   const computed = this._getComputedStyle(element);
-  //   const xPos = parseInt(mouseX);
-  //   const yPos = parseInt(mouseY);
-  //   const xPercent = (xPos / computed.width) * 100;
-  //   const yPercent = (yPos / computed.height) * 100;
-
-  //   const param1 = this.setBoundaries(6, 92.5, xPercent);
-  //   let param2 = this.setBoundaries(36, 83, yPercent);
-
-  //   if (this.restrictYAxis) param2 = 50;
-
-  //   return param1 + "% " + param2 + "%";
-  // }
-
   setBoundaries(min, max, percent) {
     if (percent >= min && percent < max) return percent;
     if (percent < min) return min;
     if (percent > max) return max;
   }
 
-  // _getComputedStyle(element) {
-  //   return {
-  //     width: parseInt(window.getComputedStyle(element).width),
-  //     height: parseInt(window.getComputedStyle(element).height),
-  //   };
-  // }
 }
 
 window.customElements.define('ph-stage', StageComponent);

@@ -9,6 +9,7 @@ export default {
     restrictYAxis: false,
     label: 'Pariser Opera',
     thumb: Thumbnail_PariserOpera,
+    description: 'D-467-69-70',
     layers: [
         {
             imgSrc: Bagtaeppe_PariserOpera,

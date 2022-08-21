@@ -10,6 +10,7 @@ export default {
     restrictYAxis: true,
     label: 'Hutte in Wald',
     thumb: Thumbnail_HutteInWald,
+    description: 'D-522-23',
     layers: [
         {
             imgSrc: Bagtaeppe_HutteInWald,

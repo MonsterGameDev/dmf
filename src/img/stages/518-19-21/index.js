@@ -10,6 +10,7 @@ export default {
     restrictYAxis: false,
     label: 'Skov 02',
     thumb: Thumbnail_Skov02,
+    description: 'D-518-19-21',
     layers: [
         {
             imgSrc: Bagtaeppe_Skov02,

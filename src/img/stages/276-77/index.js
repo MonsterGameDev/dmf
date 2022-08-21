@@ -9,6 +9,7 @@ export default {
     restrictYAxis: true,
     label: 'Vinterskov',
     thumb: Thumbnail_VinterSkov,
+    description: 'D276-77',
     layers: [
         {
             imgSrc: Bagtaeppe_VinterSkov,

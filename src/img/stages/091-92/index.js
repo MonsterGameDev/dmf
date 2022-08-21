@@ -9,6 +9,7 @@ export default {
     restrictYAxis: false,
     label: 'Skov',
     thumb: Thumbnail_Skov,
+    description: 'D091-92',
     layers: [
         {
             imgSrc: Bagtaeppe_Skov,

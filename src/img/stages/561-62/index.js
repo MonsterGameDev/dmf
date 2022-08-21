@@ -10,6 +10,7 @@ export default {
     restrictYAxis: true,
     label: 'Kinesisk Have',
     thumb: Thumbnail_KinesiskHave,
+    description: 'D-561-62',
     layers: [
         {
             imgSrc: Bagtaeppe_KinesiskHave,
