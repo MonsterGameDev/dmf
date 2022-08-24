@@ -12,12 +12,8 @@ listItemTemplate.innerHTML = `
             box-sizing: border-box;
         }
 
-        label {
-            display: flex;
-            flex-flow: row nowrap;
-            
-        }
     </style>
+    <div class="inner-container"></div>
 `;
 
 class ListItemComponent extends HTMLElement {
@@ -31,14 +27,9 @@ class ListItemComponent extends HTMLElement {
 
     set config(val) {
         this._config = val;
+        this.render(val)
     }
 
-    configInit = {
-        title: 'Title here',
-        subtitle: 'Subtitle here',
-        imgSrc: null,
-        templateType: 'normal' // img, img-inv, radio, radio-inv, check, check-inv
-    }
 
     constructor() {
         super();
@@ -51,10 +42,12 @@ class ListItemComponent extends HTMLElement {
         this._config = null;
     }
 
-    render() { }
+    render(val) { }
 
     attributeChangedCallback(attr, oldval, newval) {
         if (oldval === newval) return;
     }
 
 }
+
+window.customElements.define('ph-', COmPONENT)
