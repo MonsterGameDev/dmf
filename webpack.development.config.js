@@ -7,7 +7,8 @@ module.exports = {
         'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
         'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js'),
         'form-controls-demo': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
-        'parallax': path.resolve(__dirname, 'src/pages/parallax/page-sections.js')
+        'parallax': path.resolve(__dirname, 'src/pages/parallax/page-sections.js'),
+        'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
     },
     output: {
         filename: '[name].js',
@@ -89,6 +90,13 @@ module.exports = {
             filename: 'page-sections.html',
             template: 'src/pages/parallax/page-sections.html',
             chunks: ['parallax'],
+            minify: false,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Pagetops',
+            filename: 'page-tops.html',
+            template: 'src/pages/pagetops/page-tops.html',
+            chunks: ['pagetops'],
             minify: false,
         }),
     ]
