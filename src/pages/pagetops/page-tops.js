@@ -1,5 +1,6 @@
 import './../../components/pagetops/indian-jungle-parallax.js';
 import './../../components/pagetops/indian-praries-parallax.js';
+import './../../components/pagetops/danmark-til-eideren-parallax.js'
 import './page-tops.scss';
 
 const contentContainer = document.querySelector('.content-container');
