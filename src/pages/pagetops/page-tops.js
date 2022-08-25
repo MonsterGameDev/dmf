@@ -14,3 +14,9 @@ const phIndianJungleParallax_2 = document.querySelector('ph-indian-prarie-parall
 contentContainer_2.addEventListener('scroll', () => {
     phIndianJungleParallax_2.setAttribute('scroll-top', contentContainer_2.scrollTop)
 });
+
+const contentContainer_3 = document.querySelector('.content-container-3');
+const phDanmarkTilEiderenParallax = document.querySelector('ph-danmark-til-eideren-parallax#third')
+contentContainer_3.addEventListener('scroll', () => {
+    phDanmarkTilEiderenParallax.setAttribute('scroll-top', contentContainer_3.scrollTop)
+});
