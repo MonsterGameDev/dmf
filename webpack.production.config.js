@@ -8,7 +8,7 @@ module.exports = {
         'teater': path.resolve(__dirname, 'src/pages/teater/teater-page.js'),
         'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js'),
         'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
-        'pagetops': path.resolve(__dirname, 'src/pages/parallax/page-tops.js'),
+        'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
     },
     output: {
         filename: '[name].[contenthash].js',
