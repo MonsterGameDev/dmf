@@ -29,6 +29,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   height: 96vh;
+  overscroll-behavior: auto;
 }
 
 section {
