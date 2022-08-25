@@ -1,6 +1,7 @@
 import './../../components/pagetops/indian-jungle-parallax.js';
 import './../../components/pagetops/indian-praries-parallax.js';
 import './../../components/pagetops/danmark-til-eideren-parallax.js'
+import './../../components/pagetops/morfars-ur.js'
 import './page-tops.scss';
 
 const contentContainer = document.querySelector('.content-container');
@@ -19,4 +20,10 @@ const contentContainer_3 = document.querySelector('.content-container-3');
 const phDanmarkTilEiderenParallax = document.querySelector('ph-danmark-til-eideren-parallax#third')
 contentContainer_3.addEventListener('scroll', () => {
     phDanmarkTilEiderenParallax.setAttribute('scroll-top', contentContainer_3.scrollTop)
+});
+
+const contentContainer_4 = document.querySelector('.content-container-4');
+const phMorfarsUrParallax = document.querySelector('ph-morfars-ur-parallax#fourth')
+contentContainer_4.addEventListener('scroll', () => {
+    phMorfarsUrParallax.setAttribute('scroll-top', contentContainer_4.scrollTop)
 });
