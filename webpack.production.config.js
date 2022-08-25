@@ -9,6 +9,7 @@ module.exports = {
         'teater-demo': path.resolve(__dirname, 'src/pages/teater/teater-demo-page.js'),
         'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
         'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
+        'transparency': path.resolve(__dirname, 'src/pages/transparency/transparency.js'),
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -86,6 +87,13 @@ module.exports = {
             title: 'Pagetops',
             filename: 'page-tops.html',
             template: 'src/pages/pagetops/page-tops.html',
+            chunks: ['pagetops'],
+            minify: true,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Transpante Ark',
+            filename: 'transparency.html',
+            template: 'src/pages/transparency/transparency.html',
             chunks: ['pagetops'],
             minify: true,
         }),
