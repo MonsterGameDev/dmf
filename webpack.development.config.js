@@ -96,7 +96,7 @@ module.exports = {
             title: 'Transpante Ark',
             filename: 'transparency.html',
             template: 'src/pages/transparency/transparency.html',
-            chunks: ['pagetops'],
+            chunks: ['transparency'],
             minify: false,
         }),
     ]
