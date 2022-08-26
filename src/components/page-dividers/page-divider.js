@@ -16,7 +16,7 @@ pageDividerTemplate.innerHTML = `
             position: relative;
             width: 100%;
             background-repeat: no-repeat;
-           
+           background-size: 100%;
             background-position: center center;
             background-attachment: fixed;
             z-index: -1;
@@ -55,15 +55,15 @@ class PageDividerComponent extends HTMLElement {
 
 
 
-        window.addEventListener('scroll', (e) => {
-            const scrollY = window.scrollY;
-            const containerYPos = this.innerContainer.offsetTop;
-            const range = scrollY - containerYPos + 41;
+        // window.addEventListener('scroll', (e) => {
+        //     const scrollY = window.scrollY;
+        //     const containerYPos = this.innerContainer.offsetTop;
+        //     const range = scrollY - containerYPos + 41;
 
-            if (range > 0)
-                this.innerContainer.style.transform = 'translateY(' + 0.4 * range + 'px)';
+        //     if (range > 0)
+        //         this.innerContainer.style.transform = 'translateY(' + 0.2 * range + 'px)';
 
-        })
+        // })
 
     }
 
