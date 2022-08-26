@@ -88,13 +88,13 @@ module.exports = {
             filename: 'page-tops.html',
             template: 'src/pages/pagetops/page-tops.html',
             chunks: ['pagetops'],
-            minify: true,
+            minify: false,
         }),
         new HtmlWebpackPlugin({
             title: 'Transpante Ark',
             filename: 'transparency.html',
             template: 'src/pages/transparency/transparency.html',
-            chunks: ['pagetops'],
+            chunks: ['transparency'],
             minify: true,
         }),
     ]
