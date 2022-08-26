@@ -1,4 +1,3 @@
-import { Regensen, VinterSkov_3, AlmueStue, BorgStue, BorgerStue, FyrTaard } from './../../img/backgrounds/index.js'
 
 const pageDividerTemplate = document.createElement('template');
 pageDividerTemplate.innerHTML = `
@@ -13,14 +12,24 @@ pageDividerTemplate.innerHTML = `
             margin: 0;
             box-sizing: border-box;
         }
+        .inner-container {
+            position: relative;
+            width: 100%;
+            background-repeat: no-repeat;
+           
+            background-position: center center;
+            background-attachment: fixed;
+            z-index: -1;
+
+        }
 
     </style>
-    <div class="inner-container">Hello I am page-divider component</div>
+    <div class="inner-container"> Hello there</div>
 `;
 
 class PageDividerComponent extends HTMLElement {
     static get observedAttributes() {
-        return [];
+        return ['scroll-top'];
     }
 
     get config() {
@@ -29,7 +38,9 @@ class PageDividerComponent extends HTMLElement {
 
     set config(val) {
         this._config = val;
-        this.render(val)
+
+        this.innerContainer.style.backgroundImage = 'url(' + this._config.background + ')';
+        this.innerContainer.style.height = this._config.height;
     }
 
 
@@ -40,14 +51,32 @@ class PageDividerComponent extends HTMLElement {
         const templateContent = pageDividerTemplate.content;
         this.shadowRoot.appendChild(templateContent.cloneNode(true));
 
-        //******************************************************** */
-        this._config = null;
+        this.innerContainer = this.shadowRoot.querySelector('.inner-container');
+
+
+
+        window.addEventListener('scroll', (e) => {
+            const scrollY = window.scrollY;
+            const containerYPos = this.innerContainer.offsetTop;
+            const range = scrollY - containerYPos + 41;
+
+            if (range > 0)
+                this.innerContainer.style.transform = 'translateY(' + 0.4 * range + 'px)';
+
+        })
+
     }
 
-    render(val) { }
+    render(val) {
+        const bgYPos = 0.4 * val;
+        this.innerContainer.style.transform = 'translateY(' + bgYPos + 'px)';
+
+    }
 
     attributeChangedCallback(attr, oldval, newval) {
         if (oldval === newval) return;
+
+        if (attr === 'scroll-top') this.render(newval)
     }
 
 }

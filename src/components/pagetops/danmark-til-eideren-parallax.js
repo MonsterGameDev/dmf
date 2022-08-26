@@ -8,6 +8,7 @@ DanmarkTilEiderenParallaxTemplate.innerHTML = `
     <style>
     :host {
         width: 100%;
+       
     }
 
         *,

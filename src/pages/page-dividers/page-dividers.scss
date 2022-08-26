@@ -1,1 +1,21 @@
 @import "./../../main.scss";
+
+body {
+  padding: 2rem;
+}
+
+section {
+  padding: 2rem;
+  margin-bottom: 2rem;
+
+  border: 2px solid darkslategray;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.text-content {
+  font-size: 1.3rem;
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
