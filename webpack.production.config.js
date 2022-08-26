@@ -10,6 +10,7 @@ module.exports = {
         'form-controls': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
         'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
         'transparency': path.resolve(__dirname, 'src/pages/transparency/transparency.js'),
+        'page-dividers': path.resolve(__dirname, 'src/pages/page-dividers/page-dividers.js'),
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -88,13 +89,20 @@ module.exports = {
             filename: 'page-tops.html',
             template: 'src/pages/pagetops/page-tops.html',
             chunks: ['pagetops'],
-            minify: false,
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             title: 'Transpante Ark',
             filename: 'transparency.html',
             template: 'src/pages/transparency/transparency.html',
             chunks: ['transparency'],
+            minify: true,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Page Dividers Parallax',
+            filename: 'page-dividers.html',
+            template: 'src/pages/page-dividers/page-dividers.html',
+            chunks: ['page-dividers'],
             minify: true,
         }),
     ]

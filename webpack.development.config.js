@@ -9,6 +9,7 @@ module.exports = {
         'form-controls-demo': path.resolve(__dirname, 'src/pages/common/form-controls.js'),
         'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
         'transparency': path.resolve(__dirname, 'src/pages/transparency/transparency.js'),
+        'page-dividers': path.resolve(__dirname, 'src/pages/page-dividers/page-dividers.js'),
     },
     output: {
         filename: '[name].js',
@@ -97,6 +98,13 @@ module.exports = {
             filename: 'transparency.html',
             template: 'src/pages/transparency/transparency.html',
             chunks: ['transparency'],
+            minify: false,
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Page Dividers Parallax',
+            filename: 'page-dividers.html',
+            template: 'src/pages/page-dividers/page-dividers.html',
+            chunks: ['page-dividers'],
             minify: false,
         }),
     ]
