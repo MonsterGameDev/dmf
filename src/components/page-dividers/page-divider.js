@@ -1,3 +1,5 @@
+import { Regensen, VinterSkov_3, AlmueStue, BorgStue, BorgerStue, FyrTaard } from './../../img/backgrounds/index.js'
+
 const pageDividerTemplate = document.createElement('template');
 pageDividerTemplate.innerHTML = `
     <style>
