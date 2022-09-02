@@ -101,6 +101,6 @@
     "skipLibCheck": true
     /* Skip type checking all .d.ts files. */
   },
-  "include": ["./src/**/*.ts", "src/pages/teater/teater-page.js", "src/components/theater/stage/stage.js"],
+  "include": ["./src/**/*.ts", "src/pages/teater/teater-page.js", "src/components/theater/stage/stage.js", "src/components/scroll-story/scroll-story.component.js"],
   "exclude": ["dist", "node_modules"]
 }
