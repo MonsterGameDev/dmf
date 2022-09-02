@@ -54,17 +54,6 @@ class PageDividerComponent extends HTMLElement {
         this.innerContainer = this.shadowRoot.querySelector('.inner-container');
 
 
-
-        // window.addEventListener('scroll', (e) => {
-        //     const scrollY = window.scrollY;
-        //     const containerYPos = this.innerContainer.offsetTop;
-        //     const range = scrollY - containerYPos + 41;
-
-        //     if (range > 0)
-        //         this.innerContainer.style.transform = 'translateY(' + 0.2 * range + 'px)';
-
-        // })
-
     }
 
     render(val) {
