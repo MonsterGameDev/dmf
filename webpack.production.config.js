@@ -11,6 +11,7 @@ module.exports = {
         'pagetops': path.resolve(__dirname, 'src/pages/pagetops/page-tops.js'),
         'transparency': path.resolve(__dirname, 'src/pages/transparency/transparency.js'),
         'page-dividers': path.resolve(__dirname, 'src/pages/page-dividers/page-dividers.js'),
+        'scroll-story': path.resolve(__dirname, 'src/pages/scroll-story/scroll-story.js'),
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -103,6 +104,14 @@ module.exports = {
             filename: 'page-dividers.html',
             template: 'src/pages/page-dividers/page-dividers.html',
             chunks: ['page-dividers'],
+            minify: true,
+        }),
+
+        new HtmlWebpackPlugin({
+            title: 'ScrollStory Parallax',
+            filename: 'scroll-story.html',
+            template: 'src/pages/scroll-story/scroll-story.html',
+            chunks: ['scroll-story'],
             minify: true,
         }),
     ]
