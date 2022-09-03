@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400&family=Montserrat:wght@500&family=Titan+One&display=swap");
-@import 'variables.scss';
+@import "variables.scss";
+@import "fonts.scss";
 
 *,
 *::before,
@@ -8,13 +8,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --font-family: Montserrat;
+}
 
 html {
   font-size: 62.5%;
-  font-family: Montserrat;
+  font-family: var(--font-family);
 }
 
 body {
-    padding: 2rem 2rem 0 2rem;
-    background-color: antiquewhite;
+  padding: 2rem 2rem 0 2rem;
+  background-color: antiquewhite;
 }
