@@ -55,7 +55,15 @@ module.exports = {
             {
                 test: /\.(jpg|png|webp)$/i, //i: caseinsensitive
                 type: 'asset',
-            }
+            }, {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                exclude: [/images/],
+                type: "asset/resource",
+                generator: {
+                    filename: "fonts/[name][ext]",
+                },
+            },
+
         ],
     },
     plugins: [
