@@ -12,7 +12,7 @@ scrollStoryTemplate.innerHTML = `
     width: 100%;
     height: 100vh;
     background-size: cover;
-    background-position: center center;
+    background-position: center bottom;
     position: relative;
     z-index: -1;
   }
@@ -33,26 +33,27 @@ scrollStoryTemplate.innerHTML = `
     font-weight: 900;
     color: white;
     font-family: var(--font-family);
+    font-size: 40rem;
   }
 
   .text-fantasi {
-    left: 50px;
-    top: 50px;
+    top: -4rem;
+    display: noblocke;
   }
 
   .text-magi {
-    left: 50px;
-    bottom: 50px;
+    bottom: -8rem;
+    display: block;
   }
 
   .text-papir {
-    left: 400px;
-    top: 300px;
+    top: 20rem;
+    display: block;
   }
 
   .text-teater {
-    left: 700px;
-    bottom: 400px;
+   
+    display: block;  
   }
     </style>
     <div class="inner-container">
@@ -109,21 +110,40 @@ class ScrollStoryComponent extends HTMLElement {
   }
 
   setupAnimation() {
-    const txtFantasiKFs = [
-      {
-        transform: 'translateX(-50rem)'
-      },
-      {
-        transform: 'translateX(150rem)'
-      }
+    const txtFantasiKFs = [{ transform: 'translateX(200rem)' }, { transform: 'translateX(-200rem)' }];
+    const txMagiKFs = [{ transform: 'translateX(-50rem)' }, { transform: 'translateX(200rem)' }];
+    const txtPapirKFs = [{ transform: 'translateX(-150rem)' }, { transform: 'translateX(250rem)' }];
+    const txtTeaterKFs = [
+      { transform: 'scale(0) translate(0, -50rem)' },
+      { transform: 'scale(1) translate(0, 10rem)' },
+      { transform: 'scale(20) translate(-15rem, 10rem)', transformOrigin: '50%, 50%' },
     ];
 
     const txtFantasiFx = new KeyframeEffect(this.textFantasi, txtFantasiKFs, {
+      delay: 1200,
+      duration: 7000,
+      fill: "both"
+    })
+    const txtMagiFx = new KeyframeEffect(this.textMagi, txMagiKFs, {
+      delay: 0,
       duration: 3000,
-      fill: "forwards"
+      fill: "both"
+    })
+    const txtPapirFx = new KeyframeEffect(this.textPapir, txtPapirKFs, {
+      delay: 4800,
+      duration: 5000,
+      fill: "both"
+    })
+    const txtTeaterFx = new KeyframeEffect(this.textTeater, txtTeaterKFs, {
+      delay: 7000,
+      duration: 3000,
+      fill: "both"
     })
 
-    return new Animation(txtFantasiFx);
+    new Animation(txtMagiFx).play();
+    new Animation(txtFantasiFx).play();
+    new Animation(txtPapirFx).play();
+    new Animation(txtTeaterFx).play();
 
   }
 
