@@ -1,13 +1,16 @@
 @import "./../../main.scss";
 
-// .ph-indian-jungle-parallax {
-//   box-shadow: rgb(19 20 22) 5px -5px 6px 0px inset,
-//     rgb(0 0 0 / 50%) -3px 7px 4px 1px inset;
-//   margin-bottom: 2rem;
-// }
-
 body {
   background: darkslategray;
+}
+
+.scroll-tracker {
+  height: 0.5rem;
+  background-color: rgb(64, 64, 148);
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  transform-origin: left;
 }
 
 .text-content {

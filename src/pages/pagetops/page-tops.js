@@ -4,6 +4,27 @@ import './../../components/pagetops/danmark-til-eideren-parallax.js'
 import './../../components/pagetops/morfars-ur.js'
 import './page-tops.scss';
 
+import './../../shared/polyfills/scroll-timeline.js';
+
+// Scroll Tracker
+const scrollTracker = document.querySelector('.scroll-tracker');
+const scrollTrackingTimeline = new ScrollTimeline({
+    source: document.scrollingElement,
+    oritentation: 'block',
+    scrollOffsets: [CSS.percent(0), CSS.percent(100)]
+});
+scrollTracker.animate(
+    {
+        transform: ['scaleX(0)', 'scaleX(1)']
+    },
+    {
+        duration: 1,
+        timeline: scrollTrackingTimeline,
+    }
+);
+
+
+
 const contentContainer = document.querySelector('.content-container');
 const phIndianJungleParallax = document.querySelector('ph-indian-jungle-parallax#first')
 contentContainer.addEventListener('scroll', () => {

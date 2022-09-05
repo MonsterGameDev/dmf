@@ -94,7 +94,7 @@ class ScrollStoryComponent extends HTMLElement {
     this.textPapir = this.shadowRoot.querySelector('.text-papir')
     this.textTeater = this.shadowRoot.querySelector('.text-teater')
 
-    const anim = this.setupAnimation().play();
+    this.setupAnimation();
 
 
     //******************************************************** */
